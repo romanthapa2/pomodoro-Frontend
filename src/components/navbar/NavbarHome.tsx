@@ -1,15 +1,31 @@
 import React from "react";
+import { TbReportAnalytics  } from "react-icons/tb";
+import { MdOutlineAssignmentInd } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
+import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
+
 const NavbarHome : React.FC = () =>{
     return(
-    <div className="flex justify-center gap-52 p-1 h-16 bg-gray-400 items-center mx-96">
+    <div className="text-white flex flex-row items-center p-4 justify-center gap-[15%] overflow-x-hidden">
         <div>
-        <h1>Pomofocus</h1>
+        <h1 className="text-2xl">Pomofocus</h1>
         </div>
-        <div className="flex space-x-5">
-            <button className="px-4 py-1 bg-slate-400">Report</button>
-            <button className="">Settings</button>
-            <button className="">Sign In</button>
-            <button className=""></button>
+        <div className="flex gap-2 text-xl md:text-sm">
+            <button className="bg-gray-600 flex flex-row items-center p-2 rounded-md  gap-1">
+            <TbReportAnalytics/>
+            <span className="hidden md:inline-block ">Report</span>
+                </button>
+            <button className="bg-gray-600 flex flex-row items-center p-2 rounded-md  gap-1">
+            <IoSettingsOutline />
+            <span className="hidden md:inline-block">Settings</span>
+                </button>
+            <button className="bg-gray-600 flex flex-row items-center p-2 rounded-md  gap-1">
+            <MdOutlineAssignmentInd />
+            <span className="hidden md:inline-block">Sign In </span>
+            </button>
+            <button className="bg-gray-600 flex flex-row items-center rounded-md  p-2 ">
+            <PiDotsThreeOutlineVerticalThin />
+            </button>
         </div>
     </div>
     )}
