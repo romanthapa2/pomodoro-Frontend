@@ -1,12 +1,12 @@
 import React from "react";
 import NavbarHome from "../navbar/NavbarHome";
-import Timer from "./Timer";
+import TimerCard from "./timercard/TimerCard";
 
 const Home: React.FC = () => {
   return (
     <div className="h-screen bg-gray-900">
       <NavbarHome />
-      <Timer/>
+      <TimerCard/>
     </div>
   );
 };
