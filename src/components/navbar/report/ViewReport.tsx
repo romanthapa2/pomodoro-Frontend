@@ -9,19 +9,18 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { TbReportAnalytics } from "react-icons/tb";
+import ReportContent from "./ReportContent";
 
 const viewReport = () => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger>Open</AlertDialogTrigger>
+      <AlertDialogTrigger className="flex items-center bg-slate-600 p-1.5 rounded-md" >
+      <TbReportAnalytics />
+      <span className="hidden md:inline-block">Report</span>
+        </AlertDialogTrigger>
       <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your account and remove your data from
-            our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
+          <ReportContent/>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction>Continue</AlertDialogAction>

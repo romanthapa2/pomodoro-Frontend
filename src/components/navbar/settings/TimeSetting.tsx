@@ -1,30 +1,32 @@
-import react from 'react';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog";
+  import SettingContent from "./SettingContent";
+  import { IoSettingsOutline } from "react-icons/io5";
 
 const TimeSettings:React.FC = ()=>{
     return (
-        <div>
-            <div>
-                Setting
-            </div>
-            <div>
-                <h2>Time(minutes)</h2>
-                <div>
-                    <div>Pomodoro</div>
-                    <div>Short Break</div>
-                    <div>Long Break</div>
-                </div>
-
-            </div>
-            <div>
-
-            </div>
-            <div>
-
-            </div>
-            <div>
-
-            </div>
-        </div>
+        <AlertDialog>
+      <AlertDialogTrigger className="flex items-center bg-slate-600 p-1.5 rounded-md" >
+      <IoSettingsOutline />
+      <span className="hidden md:inline-block">Settings</span>
+        </AlertDialogTrigger>
+      <AlertDialogContent>
+          <SettingContent/>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
     )
 }
 

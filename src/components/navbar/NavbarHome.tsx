@@ -1,7 +1,7 @@
 import React from "react";
 import { TbReportAnalytics } from "react-icons/tb";
 import { MdOutlineAssignmentInd } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
+import TimeSettings from "./settings/TimeSetting";
 import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
 import ViewReport from "./report/ViewReport";
 
@@ -17,10 +17,11 @@ const NavbarHome: React.FC = () => {
           <span className="hidden md:inline-block ">Report</span>
         </button> */}
         <ViewReport />
-        <button className="bg-gray-600 flex flex-row items-center p-2 rounded-md  gap-1">
-          <IoSettingsOutline />
+        {/* <button className="bg-gray-600 flex flex-row items-center p-2 rounded-md  gap-1">
+
           <span className="hidden md:inline-block">Settings</span>
-        </button>
+        </button> */}
+        <TimeSettings />
         <button className="bg-gray-600 flex flex-row items-center p-2 rounded-md  gap-1">
           <MdOutlineAssignmentInd />
           <span className="hidden md:inline-block">Sign In </span>
