@@ -1,22 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import type { RootState } from "./Store";
 
-interface TimeState {
+export interface TimeState {
   pomodoroTime: number | null;
   shortBreak: number | null;
   longBreak: number | null;
 }
 
-const initalstate: TimeState = {
+const initialState: TimeState = {
   pomodoroTime: 25,
   shortBreak: 5,
   longBreak: 15,
 };
 
 const timeSlice = createSlice({
-  name: "time",
-  initialState: initalstate,
+  name: 'time',
+  initialState,
   reducers: {
-    setpomodoroTime: (state, action: PayloadAction<number>) => {
+    setPomodoro: (state, action: PayloadAction<number>) => {
       state.pomodoroTime = action.payload;
     },
     setShortBreak: (state, action: PayloadAction<number>) => {
@@ -28,5 +29,6 @@ const timeSlice = createSlice({
   },
 });
 
-export const { setpomodoroTime,setShortBreak,setLongBreak } = timeSlice.actions;
+export const { setPomodoro,setShortBreak,setLongBreak } = timeSlice.actions;
+export const selectPomodoroTime = (state: RootState) => state.time.pomodoroTime;
 export default timeSlice.reducer;

@@ -1,10 +1,9 @@
 import { useState,ChangeEvent } from "react";
-import { useDispatch } from "react-redux";
-import {setpomodoroTime,setLongBreak,setShortBreak} from "../../../reduxstore/TimeSlice"
-
+import {setPomodoro,setLongBreak,setShortBreak} from "../../../reduxstore/TimeSlice"
+import { useAppDispatch } from "@/reduxstore/AppHooks";
 
 const SettingContent = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [pomodoroTime, setPomodoroTime] = useState<number>(25);
   const [shortBreakTime, setShortBreakTime] = useState<number>(5);
   const [longBreakTime, setLongBreakTime] = useState<number>(15);
@@ -12,7 +11,7 @@ const SettingContent = () => {
   const handlePomodoroChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10);
     setPomodoroTime(value);
-    dispatch(setpomodoroTime(value));
+    dispatch(setPomodoro(value));
   };
 
   const handleShortBreakChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +26,6 @@ const SettingContent = () => {
     dispatch(setLongBreak(value));
   };
 
-  
   
   return (
     <div>

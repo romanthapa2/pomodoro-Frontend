@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+// import { useAppSelector } from "@/reduxstore/AppHooks";
+import { useSelector} from "react-redux";
+import { selectPomodoroTime } from "../../../reduxstore/TimeSlice";
 
 dayjs.extend(duration);
 
@@ -9,6 +12,8 @@ interface componentProps {
 }
 
 const Timer: React.FC<componentProps> = ({ status }) => {
+  const endtime = useSelector(selectPomodoroTime)
+  console.log(endtime)
   let endTime = React.useRef(dayjs().add(30, "minutes"));
   let endTimeSeconds = endTime.current.unix();
   console.log(endTimeSeconds);
