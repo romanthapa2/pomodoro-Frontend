@@ -1,5 +1,4 @@
 import React from "react";
-import { TbReportAnalytics } from "react-icons/tb";
 import { MdOutlineAssignmentInd } from "react-icons/md";
 import TimeSettings from "./settings/TimeSetting";
 import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
