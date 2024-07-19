@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./Store";
 
 export interface TimeState {
-  pomodoroTime: number | null;
-  shortBreak: number | null;
-  longBreak: number | null;
+  pomodoroTime: number;
+  shortBreak: number;
+  longBreak: number;
 }
 
 const initialState: TimeState = {
