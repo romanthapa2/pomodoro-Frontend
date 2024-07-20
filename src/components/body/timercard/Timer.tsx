@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import { useSelector } from "react-redux";
-import { selectPomodoroTime,selectLongBreak,selectShortBreak } from "../../../reduxstore/TimeSlice";
+import { selectPomodoroTime, selectLongBreak, selectShortBreak } from "../../../reduxstore/TimeSlice";
 
 dayjs.extend(duration);
 
 const Timer: React.FC = () => {
   const [status, setStatus] = useState<string>("Pause");
-    let selectPomodoro = useSelector(selectPomodoroTime);
-    const selectShortB = useSelector(selectShortBreak);
-    const selectLongB = useSelector(selectLongBreak);
+  const [activeButton, setActiveButton] = useState<string>("Pomodoro");
+  let selectPomodoro = useSelector(selectPomodoroTime);
+  const selectShortB = useSelector(selectShortBreak);
+  const selectLongB = useSelector(selectLongBreak);
   const [endTimeRedux, setEndTimeRedux] = useState<number>(selectPomodoro);
 
-
   let endTime = React.useRef(dayjs().add(endTimeRedux, "minutes"));
-  console.log(endTime); 
+  console.log(endTime);
   const [time, setTime] = useState<string>(`${endTimeRedux} : 00`);
   const timerId = React.useRef<number | null>(null);
   const timeLeft = React.useRef(endTime.current.unix() - dayjs().unix());
@@ -42,7 +42,6 @@ const Timer: React.FC = () => {
     return () => clearInterval(timerId.current!);
   }, [endTimeRedux, status]);
 
-
   const handleStartPause = () => {
     if (status === "Pause") {
       endTime.current = dayjs().add(timeLeft.current, "seconds");
@@ -54,36 +53,33 @@ const Timer: React.FC = () => {
     }
   };
 
-  const handlePomodoro = () => {
+  const handleButtonClick = (type: string, time: number) => {
     clearInterval(timerId.current!);
-    setEndTimeRedux(selectPomodoro);
-    setTime(`${selectPomodoro} : 00`);
+    setEndTimeRedux(time);
+    setTime(`${time} : 00`);
     setStatus("Pause");
+    setActiveButton(type);
   };
-
-  const handleShortBreak = () => {
-    clearInterval(timerId.current!);
-    setEndTimeRedux(selectShortB);
-    setTime(`${selectShortB} : 00`);
-    setStatus("Pause");
-  };
-
-  const handleLongBreak = () => {
-    clearInterval(timerId.current!);
-    setEndTimeRedux(selectLongB);
-    setTime(`${selectLongB} : 00`);
-    setStatus("Pause");
-  };
-
-
 
   return (
     <div className="text-white bg-gray-500 h-fit mx-2 mt-10 md:mx-[30%] rounded-md">
       <div className="p-5">
         <div className="flex justify-center items-center h-8 ">
-          <button onClick={handlePomodoro} className="px-3 py-1 bg-slate-700 rounded-md">Pomodoro</button>
-          <button onClick={handleShortBreak} className="px-3 py-1 bg-green-300 rounded-md">Short Break</button>
-          <button onClick={handleLongBreak} className="px-3 py-1 bg-green-300 rounded-md">Long Break</button>
+          <button
+            onClick={() => handleButtonClick("Pomodoro", selectPomodoro)}
+            className={`px-3 py-1  rounded-md ${activeButton==="Pomodoro" ? "bg-gray-700" : "bg-gray-500" }`}>
+            Pomodoro
+          </button>
+          <button
+            onClick={() => handleButtonClick("Short Break", selectShortB)}
+            className={`px-3 py-1 rounded-md ${activeButton === "Short Break" ? "bg-gray-700" : "bg-gray-500" }`}>
+            Short Break
+          </button>
+          <button
+            onClick={() => handleButtonClick("Long Break", selectLongB)}
+            className={`px-3 py-1 rounded-md ${activeButton === "Long Break" ? "bg-gray-700" : "bg-gray-500" }`}>
+            Long Break
+          </button>
         </div>
 
         {/* time showing div */}
