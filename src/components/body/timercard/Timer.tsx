@@ -9,30 +9,29 @@ dayjs.extend(duration);
 const Timer: React.FC = () => {
   const [status, setStatus] = useState<string>("Pause");
   const [activeButton, setActiveButton] = useState<string>("Pomodoro");
-  let selectPomodoro = useSelector(selectPomodoroTime);
+  const selectPomodoro = useSelector(selectPomodoroTime);
   const selectShortB = useSelector(selectShortBreak);
   const selectLongB = useSelector(selectLongBreak);
   const [endTimeRedux, setEndTimeRedux] = useState<number>(selectPomodoro);
 
   let endTime = React.useRef(dayjs().add(endTimeRedux, "minutes"));
-  console.log(endTime);
   const [time, setTime] = useState<string>(`${endTimeRedux} : 00`);
   const timerId = React.useRef<number | null>(null);
   const timeLeft = React.useRef(endTime.current.unix() - dayjs().unix());
 
-  const updateTimer = () => {
-    let differenceTime = endTime.current.unix() - dayjs().unix();
-    if (differenceTime <= 0) {
-      clearInterval(timerId.current!);
-      setStatus("Pause");
-    }
-    const duration = dayjs.duration(differenceTime * 1000, "milliseconds");
-    const twoDP = (n: number) => (n > 9 ? n : "0" + n);
-    const timestamp = `${twoDP(duration.minutes())} : ${twoDP(duration.seconds())}`;
-    setTime(timestamp);
-  };
-
   useEffect(() => {
+    const updateTimer = () => {
+      let differenceTime = endTime.current.unix() - dayjs().unix();
+      if (differenceTime <= 0) {
+        clearInterval(timerId.current!);
+        setStatus("Pause");
+      }
+      const duration = dayjs.duration(differenceTime * 1000, "milliseconds");
+      const twoDP = (n: number) => (n > 9 ? n : "0" + n);
+      const timestamp = `${twoDP(duration.minutes())} : ${twoDP(duration.seconds())}`;
+      setTime(timestamp);
+    };
+
     if (status === "Start") {
       timerId.current = window.setInterval(updateTimer, 1000);
     } else if (status === "Pause") {
@@ -40,7 +39,7 @@ const Timer: React.FC = () => {
     }
 
     return () => clearInterval(timerId.current!);
-  }, [endTimeRedux, status]);
+  }, [selectPomodoro, status]);
 
   const handleStartPause = () => {
     if (status === "Pause") {
@@ -67,17 +66,23 @@ const Timer: React.FC = () => {
         <div className="flex justify-center items-center h-8 ">
           <button
             onClick={() => handleButtonClick("Pomodoro", selectPomodoro)}
-            className={`px-3 py-1  rounded-md ${activeButton==="Pomodoro" ? "bg-gray-700" : "bg-gray-500" }`}>
+            className={`px-3 py-1  rounded-md ${
+              activeButton === "Pomodoro" ? "bg-gray-700" : "bg-gray-500"
+            }`}>
             Pomodoro
           </button>
           <button
             onClick={() => handleButtonClick("Short Break", selectShortB)}
-            className={`px-3 py-1 rounded-md ${activeButton === "Short Break" ? "bg-gray-700" : "bg-gray-500" }`}>
+            className={`px-3 py-1 rounded-md ${
+              activeButton === "Short Break" ? "bg-gray-700" : "bg-gray-500"
+            }`}>
             Short Break
           </button>
           <button
             onClick={() => handleButtonClick("Long Break", selectLongB)}
-            className={`px-3 py-1 rounded-md ${activeButton === "Long Break" ? "bg-gray-700" : "bg-gray-500" }`}>
+            className={`px-3 py-1 rounded-md ${
+              activeButton === "Long Break" ? "bg-gray-700" : "bg-gray-500"
+            }`}>
             Long Break
           </button>
         </div>
