@@ -39,13 +39,13 @@ const SettingContent = () => {
         </div>
         <div>
           <h3>Short Break</h3>
-          <input min="1" max="100" type="number" value={shortBreakTime}
+          <input className="bg-slate-300 p-2 rounded-md" min="1" max="100" type="number" value={shortBreakTime}
           onChange={handleShortBreakChange}
           ></input>
         </div>
         <div>
           <h3>Long Break</h3>
-          <input min="1" max="100" type="number" value={longBreakTime}
+          <input className="bg-slate-300 p-2 rounded-md" min="1" max="100" type="number" value={longBreakTime}
           onChange={handleLongBreakChange}
           ></input>
         </div>

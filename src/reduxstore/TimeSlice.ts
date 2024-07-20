@@ -31,4 +31,6 @@ const timeSlice = createSlice({
 
 export const { setPomodoro,setShortBreak,setLongBreak } = timeSlice.actions;
 export const selectPomodoroTime = (state: RootState) => state.time.pomodoroTime;
+export const selectShortBreak = (state: RootState) => state.time.shortBreak;
+export const selectLongBreak = (state: RootState) => state.time.longBreak;
 export default timeSlice.reducer;
