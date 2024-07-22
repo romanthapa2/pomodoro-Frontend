@@ -37,22 +37,22 @@ const SettingContent = () => {
   return (
     <>
     <div>
-      <header className="h-8 border-b-2 flex justify-center">SETTING</header>
-      <h2 className="h-8 mt-4">TIMER</h2>
-      <h2 className="">Time(minutes)</h2>
+      <header className="h-8 border-b-2 flex justify-center font-bold">SETTING</header>
+      <h2 className="h-8 mt-4 font-bold text-slate-500 text-lg">TIMER</h2>
+      <h2 className="text-lg font-semibold">Time(minutes)</h2>
       <div className="flex flex-row justify-start space-x-12 w-full">
         <div>
-          <h3>Pomodoro</h3>
+          <h3 className="text-slate-500">Pomodoro</h3>
           <input className="bg-slate-300 p-2 rounded-md" min="1" max="100" type="number" value={pomodoroTime} onChange={handlePomodoroChange}></input>
         </div>
         <div>
-          <h3>Short Break</h3>
+          <h3 className="text-slate-500">Short Break</h3>
           <input className="bg-slate-300 p-2 rounded-md" min="1" max="100" type="number" value={shortBreakTime}
           onChange={handleShortBreakChange}
           ></input>
         </div>
         <div>
-          <h3>Long Break</h3>
+          <h3 className="text-slate-500">Long Break</h3>
           <input className="bg-slate-300 p-2 rounded-md" min="1" max="100" type="number" value={longBreakTime}
           onChange={handleLongBreakChange}
           ></input>
