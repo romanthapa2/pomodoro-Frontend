@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import { useSelector } from "react-redux";
@@ -7,18 +7,22 @@ import { selectPomodoroTime, selectLongBreak, selectShortBreak } from "../../../
 dayjs.extend(duration);
 
 const Timer: React.FC = () => {
-  const [status, setStatus] = useState<string>("Pause");
-  const [activeButton, setActiveButton] = useState<string>("Pomodoro");
   const selectPomodoro = useSelector(selectPomodoroTime);
   const selectShortB = useSelector(selectShortBreak);
   const selectLongB = useSelector(selectLongBreak);
+
+
+  const [status, setStatus] = useState<string>("Pause");
+  const [activeButton, setActiveButton] = useState<string>("Pomodoro");
   const [endTimeRedux, setEndTimeRedux] = useState<number>(selectPomodoro);
-
-  let endTime = React.useRef(dayjs().add(endTimeRedux, "minutes"));
   const [time, setTime] = useState<string>(`${endTimeRedux} : 00`);
-  const timerId = React.useRef<number | null>(null);
-  const timeLeft = React.useRef(endTime.current.unix() - dayjs().unix());
 
+
+  let endTime = useRef(dayjs().add(endTimeRedux, "minutes"));
+  const timerId = useRef<number | null>(null);
+  const timeLeft = useRef(endTime.current.unix() - dayjs().unix());
+
+// for showing time in the UI
   useEffect(() => {
     const updateTimer = () => {
       let differenceTime = endTime.current.unix() - dayjs().unix();
@@ -31,7 +35,7 @@ const Timer: React.FC = () => {
       const timestamp = `${twoDP(duration.minutes())} : ${twoDP(duration.seconds())}`;
       setTime(timestamp);
     };
-
+    
     if (status === "Start") {
       timerId.current = window.setInterval(updateTimer, 1000);
     } else if (status === "Pause") {
@@ -39,8 +43,10 @@ const Timer: React.FC = () => {
     }
 
     return () => clearInterval(timerId.current!);
-  }, [selectPomodoro, status]);
+  }, [ status]);
 
+
+  // handle start and pause event inside 
   const handleStartPause = () => {
     if (status === "Pause") {
       endTime.current = dayjs().add(timeLeft.current, "seconds");
@@ -52,6 +58,18 @@ const Timer: React.FC = () => {
     }
   };
 
+  // hadle when i change time in the settings immidate change in UI
+  useEffect(() => {
+    const newTime = activeButton === "Pomodoro" ? selectPomodoro :
+                    activeButton === "Short Break" ? selectShortB : selectLongB;
+    setEndTimeRedux(newTime);
+    setTime(`${newTime} : 00`);
+    endTime.current = dayjs().add(newTime, "minutes");
+    timeLeft.current = endTime.current.unix() - dayjs().unix();
+  }, [selectPomodoro, selectShortB, selectLongB, activeButton]);
+
+
+  // altering the pomodoro, short break and long break
   const handleButtonClick = (type: string, time: number) => {
     clearInterval(timerId.current!);
     setEndTimeRedux(time);

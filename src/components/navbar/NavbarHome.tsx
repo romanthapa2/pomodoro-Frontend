@@ -1,6 +1,6 @@
 import React from "react";
 import { MdOutlineAssignmentInd } from "react-icons/md";
-import TimeSettings from "./settings/TimeSetting";
+import TimeSettings from "./settings/TimeSettingOpener";
 import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
 import ViewReport from "./report/ViewReport";
 

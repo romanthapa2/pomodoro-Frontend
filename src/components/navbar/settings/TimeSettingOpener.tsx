@@ -6,7 +6,7 @@ import {
     AlertDialogFooter,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog";
-  import SettingContent from "./SettingContent";
+  import SettingContent from "./TimeSettingContent";
   import { IoSettingsOutline } from "react-icons/io5";
 
 const TimeSettings:React.FC = ()=>{

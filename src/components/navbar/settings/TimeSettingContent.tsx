@@ -3,6 +3,7 @@ import {setPomodoro,setLongBreak,setShortBreak} from "../../../reduxstore/TimeSl
 import { useAppDispatch } from "@/reduxstore/AppHooks";
 import { useSelector } from "react-redux";
 import { selectPomodoroTime, selectLongBreak, selectShortBreak } from "../../../reduxstore/TimeSlice";
+import SoundSettingContent from "./SoundSettingContent"
 
 
 const SettingContent = () => {
@@ -34,6 +35,7 @@ const SettingContent = () => {
 
   
   return (
+    <>
     <div>
       <header className="h-8 border-b-2 flex justify-center">SETTING</header>
       <h2 className="h-8 mt-4">TIMER</h2>
@@ -57,6 +59,8 @@ const SettingContent = () => {
         </div>
       </div>
     </div>
+    <SoundSettingContent/>
+    </>
   );
 };
 
