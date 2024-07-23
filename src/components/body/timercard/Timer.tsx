@@ -79,6 +79,7 @@ const Timer: React.FC = () => {
   };
 
   return (
+    <>
     <div className="text-white bg-gray-500 h-fit mx-2 mt-10 md:mx-[30%] rounded-md">
       <div className="p-5">
         <div className="flex justify-center items-center h-8 ">
@@ -120,6 +121,7 @@ const Timer: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

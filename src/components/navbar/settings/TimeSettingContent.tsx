@@ -32,7 +32,6 @@ const SettingContent = () => {
     setLongBreakTime(value);
     dispatch(setLongBreak(value));
   };
-
   
   return (
     <>

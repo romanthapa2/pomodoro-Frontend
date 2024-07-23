@@ -2,6 +2,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 const SoundSettingContent = () => {
   return (
+    <>
     <div className="my-5 space-y-3">
       <h2 className="text-lg text-slate-500 font-bold">SOUND</h2>
       <div className="flex justify-between flex-row items-center">
@@ -29,6 +30,7 @@ const SoundSettingContent = () => {
         ></input>
       </div>
     </div>
+    </>
   );
 };
 
