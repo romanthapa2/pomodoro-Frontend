@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./Store";
 
 export interface taskType {
-  pomoTask: Array<string>;
+  pomoTask: string[];
   pomoTime: number;
 }
 
@@ -15,8 +15,8 @@ const taskSlice = createSlice({
   name: "task",
   initialState,
   reducers: {
-    addPomoTask : (state,action:PayloadAction<Array<string>>)=>{
-        state.pomoTask = action.payload;
+    addPomoTask : (state,action:PayloadAction<string>)=>{
+        state.pomoTask.push(action.payload);
     },
     addPomoTime : (state,action:PayloadAction<number>)=>{
         state.pomoTime = action.payload;

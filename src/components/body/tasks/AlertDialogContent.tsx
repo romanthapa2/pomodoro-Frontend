@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { AlertDialogAction, AlertDialogCancel, AlertDialogFooter } from "@/components/ui/alert-dialog";
+import { useAppDispatch } from "@/reduxstore/AppHooks";
+import { addPomoTask, addPomoTime } from "@/reduxstore/TaskSlice";
 
 const AlertContent = () => {
+  const dispatch = useAppDispatch(); 
   const [no, setNo] = useState<number>(1);
   const handleIncrease = () => {
     setNo(no + 1);
   };
   const handleDecrease = () => {
-    setNo(no - 1);
+    if (no>=2){
+      setNo(no - 1);
+    }
   };
 
   const [text, setText] = useState("");
@@ -15,9 +20,10 @@ const AlertContent = () => {
     setText(e.target.value);
   };
 
-  const handleSubmit = ()=>{
-      
-  }
+  const handleSubmit = () => {
+    dispatch(addPomoTask(text));
+    dispatch(addPomoTime(no));
+  };
 
   return (
     <>
@@ -29,13 +35,9 @@ const AlertContent = () => {
         placeholder="What are you working on?"
       />
       <h2 className="font-medium">Estimated Pomodoros</h2>
-      <div className="">
-        <input
-          className="bg-slate-300  px-2 py-1 text-lg rounded"
-          min="1"
-          max="20"
-          value={no}
-          type="number"></input>
+      <div className="flex flex-row">
+        <h3 className="bg-slate-300 w-20 px-2 py-1 text-lg rounded">{no}</h3>
+
         <button className="mx-4 border px-2 py-1 text-lg rounded" onClick={handleIncrease}>
           up
         </button>
