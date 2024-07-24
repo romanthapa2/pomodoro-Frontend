@@ -7,6 +7,9 @@ const Task:React.FC = () => {
       <div className="mb-5 mt-5 text-white">
         Tasks
       </div>
+      <div>
+        
+      </div>
     <AlertDialogDemo/>
     </div>
     </>
