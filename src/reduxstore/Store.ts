@@ -1,7 +1,7 @@
 import { configureStore,combineReducers } from "@reduxjs/toolkit";
 import timeSlice from "./TimeSlice.ts";
 import taskSlice  from "./TaskSlice.ts";
-import { persistReducer } from "redux-persist";
+import { persistReducer,persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {
@@ -24,6 +24,7 @@ export const store = configureStore({
     }),
 });
 
+export const persistor = persistStore(store);
 // Get the type of our store variable
 export type AppStore = typeof store;
 // Infer the `RootState` and `AppDispatch` types from the store itself

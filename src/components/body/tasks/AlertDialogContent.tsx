@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { AlertDialogAction, AlertDialogCancel, AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { useAppDispatch } from "@/reduxstore/AppHooks";
-import { addPomoTask, addPomoTime } from "@/reduxstore/TaskSlice";
+import { addPomoTask} from "@/reduxstore/TaskSlice";
 
 const AlertContent = () => {
-  const dispatch = useAppDispatch(); 
+  const dispatch = useAppDispatch();
   const [no, setNo] = useState<number>(1);
   const handleIncrease = () => {
     setNo(no + 1);
   };
   const handleDecrease = () => {
-    if (no>=2){
+    if (no >= 2) {
       setNo(no - 1);
     }
   };
@@ -20,9 +20,8 @@ const AlertContent = () => {
     setText(e.target.value);
   };
 
-  const handleSubmit = () => {
-    dispatch(addPomoTask(text));
-    dispatch(addPomoTime(no));
+  const handleSubmit = async() => {
+    dispatch(addPomoTask({text,no}));
   };
 
   return (
