@@ -6,7 +6,7 @@ import Task from "./tasks/Task";
 const Home: React.FC = () => {
   return (
     <>
-    <div className="h-screen bg-gray-900">
+    <div className="h-fit bg-gray-900">
       <NavbarHome />
       <Timer/>
       <Task/>

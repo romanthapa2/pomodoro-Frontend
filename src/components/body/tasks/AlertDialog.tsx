@@ -10,7 +10,7 @@ import {
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant="outline" className="w-1/3 p-7">Add Task</Button>
+          <Button variant="outline" className="w-[40%] p-7 my-6">Add Task</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertContent/>

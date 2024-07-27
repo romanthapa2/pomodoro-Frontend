@@ -13,9 +13,9 @@ const Task: React.FC = () => {
   console.log(pomoTask)
   return (
     <>
-      <div className="h-60 flex flex-col justify-start items-center ">
+      <div className="h-full w-full flex flex-col justify-start items-center mt-8 ">
         <div className="mb-5 mt-5 text-white">Tasks</div>
-        <div>
+        <div className="w-full flex flex-col items-center justify-center">
           {pomoTask.map((task, index) => (
             <TaskCard task={task} key={index} />
           ))}
