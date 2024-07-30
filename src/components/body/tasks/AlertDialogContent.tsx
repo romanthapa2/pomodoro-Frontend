@@ -31,6 +31,7 @@ const AlertContent = () => {
         type="text"
         autoFocus
         onChange={onChange}
+        value={text}
         placeholder="What are you working on?"
       />
       <h2 className="font-medium">Estimated Pomodoros</h2>
@@ -45,6 +46,7 @@ const AlertContent = () => {
         </button>
       </div>
       <AlertDialogFooter>
+        
         <AlertDialogCancel>Cancel</AlertDialogCancel>
         <AlertDialogAction onClick={handleSubmit}>Continue</AlertDialogAction>
       </AlertDialogFooter>

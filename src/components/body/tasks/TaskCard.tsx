@@ -1,5 +1,5 @@
-import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
 
+import { AlertDialogDemo } from "./AlertDialog";
 
 interface Task{
   text: string;
@@ -9,6 +9,7 @@ interface Task{
 interface taskCardProp{
   task:Task
 }
+
 
 const TaskCard:React.FC<taskCardProp> = ({task}) => {
   return (
@@ -20,9 +21,9 @@ const TaskCard:React.FC<taskCardProp> = ({task}) => {
       <h3 className="">
       {task.no}
       </h3>
-      <button className="bg-gray-600 flex flex-row items-center rounded-md  p-2 ">
-          <PiDotsThreeOutlineVerticalThin />
-        </button>
+      {/* <button onClick={handleTaskEdit} className="bg-gray-600 flex flex-row items-center rounded-md  p-2 "> */}
+      <AlertDialogDemo />
+        {/* </button> */}
         </div>
     </div>
   )
