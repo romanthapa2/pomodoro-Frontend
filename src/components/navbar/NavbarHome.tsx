@@ -11,15 +11,7 @@ const NavbarHome: React.FC = () => {
         <h1 className="text-2xl">Pomofocus</h1>
       </div>
       <div className="flex gap-2 text-xl md:text-sm">
-        {/* <button className="bg-gray-600 flex flex-row items-center p-2 rounded-md  gap-1">
-          <TbReportAnalytics />
-          <span className="hidden md:inline-block ">Report</span>
-        </button> */}
         <ViewReport />
-        {/* <button className="bg-gray-600 flex flex-row items-center p-2 rounded-md  gap-1">
-
-          <span className="hidden md:inline-block">Settings</span>
-        </button> */}
         <TimeSettings />
         <button className="bg-gray-600 flex flex-row items-center p-2 rounded-md  gap-1">
           <MdOutlineAssignmentInd />

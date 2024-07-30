@@ -1,3 +1,5 @@
+import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
+
 
 interface Task{
   text: string;
@@ -14,9 +16,14 @@ const TaskCard:React.FC<taskCardProp> = ({task}) => {
       <h3 className="">
           {task.text}
       </h3>
+      <div className="flex justify-center items-center gap-5">
       <h3 className="">
       {task.no}
       </h3>
+      <button className="bg-gray-600 flex flex-row items-center rounded-md  p-2 ">
+          <PiDotsThreeOutlineVerticalThin />
+        </button>
+        </div>
     </div>
   )
 }
