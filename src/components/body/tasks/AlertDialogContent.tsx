@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AlertDialogAction, AlertDialogCancel, AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { useAppDispatch } from "@/reduxstore/AppHooks";
-import { addPomoTask} from "@/reduxstore/TaskSlice";
+import { addPomoTask } from "@/reduxstore/TaskSlice";
 
 const AlertContent = () => {
   const dispatch = useAppDispatch();
@@ -20,8 +20,8 @@ const AlertContent = () => {
     setText(e.target.value);
   };
 
-  const handleSubmit = async() => {
-    dispatch(addPomoTask({text,no}));
+  const handleSubmit = async () => {
+    dispatch(addPomoTask({ text, no }));
   };
 
   return (
@@ -46,7 +46,6 @@ const AlertContent = () => {
         </button>
       </div>
       <AlertDialogFooter>
-        
         <AlertDialogCancel>Cancel</AlertDialogCancel>
         <AlertDialogAction onClick={handleSubmit}>Continue</AlertDialogAction>
       </AlertDialogFooter>

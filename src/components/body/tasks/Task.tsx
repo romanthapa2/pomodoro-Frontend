@@ -10,7 +10,6 @@ interface Task {
 
 const Task: React.FC = () => {
   const pomoTask = useSelector(selectPomoTask) as Task[];
-  console.log(pomoTask)
   return (
     <>
       <div className="h-full w-full flex flex-col justify-start items-center mt-8 ">
@@ -20,7 +19,7 @@ const Task: React.FC = () => {
             <TaskCard task={task} key={index} />
           ))}
         </div>
-        <AlertDialogDemo />
+        <AlertDialogDemo className="w-[40%] p-7 my-6" text="ADD Task"  />
       </div>
     </>
   );
