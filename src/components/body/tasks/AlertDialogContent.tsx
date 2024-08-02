@@ -1,9 +1,21 @@
 import { useState } from "react";
-import { AlertDialogAction, AlertDialogCancel, AlertDialogFooter } from "@/components/ui/alert-dialog";
+import {
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogFooter,
+  AlertDialogDescription,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { useAppDispatch } from "@/reduxstore/AppHooks";
 import { addPomoTask } from "@/reduxstore/TaskSlice";
+import { ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 
-const AlertContent = () => {
+interface props {
+  button: ReactNode;
+}
+
+const AlertContent = ({ button }: props) => {
   const dispatch = useAppDispatch();
   const [no, setNo] = useState<number>(1);
   const handleIncrease = () => {
@@ -26,6 +38,9 @@ const AlertContent = () => {
 
   return (
     <>
+    {/* if not having title and description it throws error so i am putting this two line of code */}
+      <AlertDialogTitle className="hidden">feff</AlertDialogTitle>
+      <AlertDialogDescription className="hidden">feofe</AlertDialogDescription>
       <input
         className="focus:outline-none focus:border-none text-2xl"
         type="text"
@@ -46,6 +61,7 @@ const AlertContent = () => {
         </button>
       </div>
       <AlertDialogFooter>
+        {typeof button === "object" && <Button>Delete</Button>}
         <AlertDialogCancel>Cancel</AlertDialogCancel>
         <AlertDialogAction onClick={handleSubmit}>Continue</AlertDialogAction>
       </AlertDialogFooter>

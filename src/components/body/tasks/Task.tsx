@@ -19,7 +19,7 @@ const Task: React.FC = () => {
             <TaskCard task={task} key={index} />
           ))}
         </div>
-        <AlertDialogDemo className="w-[40%] p-7 my-6" text="ADD Task"  />
+        <AlertDialogDemo className="w-[40%] p-7 my-6" button="ADD Task"  />
       </div>
     </>
   );
