@@ -16,6 +16,9 @@ const taskSlice = createSlice({
     addPomoTask : (state,action:PayloadAction<object>)=>{
         state.pomoTask.push(action.payload);
     },
+    deleteTask : (state,action:PayloadAction<object>)=>{
+      
+    }
   }
 });
 

@@ -14,27 +14,34 @@ import { Button } from "@/components/ui/button";
 interface props {
   button: ReactNode;
 }
+interface taskType{
+  no:number,
+  text:string
+}
 
 const AlertContent = ({ button }: props) => {
   const dispatch = useAppDispatch();
-  const [no, setNo] = useState<number>(1);
+  const [task, setTask] = useState<taskType>({no:1,text:""});
   const handleIncrease = () => {
-    setNo(no + 1);
+    setTask((prevTask) => ({ ...prevTask, no: prevTask.no + 1 }));
   };
   const handleDecrease = () => {
-    if (no >= 2) {
-      setNo(no - 1);
+    if (task.no >= 2) {
+      setTask((prevTask) => ({ ...prevTask, no: prevTask.no - 1 }));
     }
   };
 
-  const [text, setText] = useState("");
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value);
+    setTask((prevTask) => ({ ...prevTask, text: e.target.value }));
   };
 
   const handleSubmit = async () => {
-    dispatch(addPomoTask({ text, no }));
+    dispatch(addPomoTask(task));
   };
+
+  const handleDeleteTask = () =>{
+    
+  }
 
   return (
     <>
@@ -46,12 +53,13 @@ const AlertContent = ({ button }: props) => {
         type="text"
         autoFocus
         onChange={onChange}
-        value={text}
+        value={task.text}
+        minLength={2}
         placeholder="What are you working on?"
       />
       <h2 className="font-medium">Estimated Pomodoros</h2>
       <div className="flex flex-row">
-        <h3 className="bg-slate-300 w-20 px-2 py-1 text-lg rounded">{no}</h3>
+        <h3 className="bg-slate-300 w-20 px-2 py-1 text-lg rounded">{task.no}</h3>
 
         <button className="mx-4 border px-2 py-1 text-lg rounded" onClick={handleIncrease}>
           up
@@ -61,7 +69,7 @@ const AlertContent = ({ button }: props) => {
         </button>
       </div>
       <AlertDialogFooter>
-        {typeof button === "object" && <Button>Delete</Button>}
+        {typeof button === "object" && <Button onClick={handleDeleteTask}>Delete</Button>}
         <AlertDialogCancel>Cancel</AlertDialogCancel>
         <AlertDialogAction onClick={handleSubmit}>Continue</AlertDialogAction>
       </AlertDialogFooter>
