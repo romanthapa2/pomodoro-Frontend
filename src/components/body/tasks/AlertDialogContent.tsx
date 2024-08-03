@@ -21,9 +21,12 @@ interface taskType {
   text: string;
 }
 
+// when i click the add or edit button this component will show up
 const AlertContent = ({ button, index }: props) => {
   const dispatch = useAppDispatch();
   const [task, setTask] = useState<taskType>({ no: 1, text: "" });
+
+
   const handleIncrease = () => {
     setTask((prevTask) => ({ ...prevTask, no: prevTask.no + 1 }));
   };
@@ -38,7 +41,9 @@ const AlertContent = ({ button, index }: props) => {
   };
 
   const handleSubmit = async () => {
-    dispatch(addPomoTask(task));
+    if (task.text.length >= 2){
+      dispatch(addPomoTask(task));
+    }
   };
 
   const handleDeleteTask = () => {
@@ -58,7 +63,6 @@ const AlertContent = ({ button, index }: props) => {
         autoFocus
         onChange={onChange}
         value={task.text}
-        minLength={2}
         placeholder="What are you working on?"
       />
       <h2 className="font-medium">Estimated Pomodoros</h2>

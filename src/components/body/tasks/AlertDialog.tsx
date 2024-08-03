@@ -9,7 +9,7 @@ interface props {
   index?: number;
 }
 
-export function AlertDialogDemo({ button, className,index }: props) {
+export function AlertDialogDemo({ button, className, index }: props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -18,7 +18,7 @@ export function AlertDialogDemo({ button, className,index }: props) {
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
-        <AlertContent button={button} index={index}/>
+        <AlertContent button={button} index={index} />
       </AlertDialogContent>
     </AlertDialog>
   );
