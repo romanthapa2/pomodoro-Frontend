@@ -6,9 +6,10 @@ import { ReactNode } from "react";
 interface props {
   button: ReactNode;
   className: string;
+  index?: number;
 }
 
-export function AlertDialogDemo({ button, className }: props) {
+export function AlertDialogDemo({ button, className,index }: props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -17,7 +18,7 @@ export function AlertDialogDemo({ button, className }: props) {
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
-        <AlertContent button={button}/>
+        <AlertContent button={button} index={index}/>
       </AlertDialogContent>
     </AlertDialog>
   );

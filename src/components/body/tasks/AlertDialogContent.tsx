@@ -10,18 +10,20 @@ import { useAppDispatch } from "@/reduxstore/AppHooks";
 import { addPomoTask } from "@/reduxstore/TaskSlice";
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { deleteTask } from "@/reduxstore/TaskSlice";
 
 interface props {
   button: ReactNode;
+  index?: number;
 }
-interface taskType{
-  no:number,
-  text:string
+interface taskType {
+  no: number;
+  text: string;
 }
 
-const AlertContent = ({ button }: props) => {
+const AlertContent = ({ button, index }: props) => {
   const dispatch = useAppDispatch();
-  const [task, setTask] = useState<taskType>({no:1,text:""});
+  const [task, setTask] = useState<taskType>({ no: 1, text: "" });
   const handleIncrease = () => {
     setTask((prevTask) => ({ ...prevTask, no: prevTask.no + 1 }));
   };
@@ -39,13 +41,15 @@ const AlertContent = ({ button }: props) => {
     dispatch(addPomoTask(task));
   };
 
-  const handleDeleteTask = () =>{
-    
-  }
+  const handleDeleteTask = () => {
+    if (index !== undefined) {
+      dispatch(deleteTask(index));
+    }
+  };
 
   return (
     <>
-    {/* if not having title and description it throws error so i am putting this two line of code */}
+      {/* if not having title and description it throws error so i am putting this two line of code */}
       <AlertDialogTitle className="hidden">feff</AlertDialogTitle>
       <AlertDialogDescription className="hidden">feofe</AlertDialogDescription>
       <input
