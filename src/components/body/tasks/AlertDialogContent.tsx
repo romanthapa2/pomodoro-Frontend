@@ -26,7 +26,6 @@ const AlertContent = ({ button, index }: props) => {
   const dispatch = useAppDispatch();
   const [task, setTask] = useState<taskType>({ no: 1, text: "" });
 
-
   const handleIncrease = () => {
     setTask((prevTask) => ({ ...prevTask, no: prevTask.no + 1 }));
   };
@@ -41,7 +40,7 @@ const AlertContent = ({ button, index }: props) => {
   };
 
   const handleSubmit = async () => {
-    if (task.text.length >= 2){
+    if (task.text.length >= 2) {
       dispatch(addPomoTask(task));
     }
   };
