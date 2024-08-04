@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {
   AlertDialogAction,
   AlertDialogCancel,
@@ -7,7 +7,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useAppDispatch } from "@/reduxstore/AppHooks";
-import { addPomoTask } from "@/reduxstore/TaskSlice";
+import { addPomoTask,updateTask } from "@/reduxstore/TaskSlice";
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { deleteTask } from "@/reduxstore/TaskSlice";
@@ -15,6 +15,7 @@ import { deleteTask } from "@/reduxstore/TaskSlice";
 interface props {
   button: ReactNode;
   index?: number;
+  initialTask?: taskType;
 }
 interface taskType {
   no: number;
@@ -22,9 +23,17 @@ interface taskType {
 }
 
 // when i click the add or edit button this component will show up
-const AlertContent = ({ button, index }: props) => {
+const AlertContent = ({ button, index, initialTask }: props) => {
   const dispatch = useAppDispatch();
   const [task, setTask] = useState<taskType>({ no: 1, text: "" });
+
+
+  useEffect(() => {
+    if (initialTask) {
+      setTask(initialTask);
+    }
+  }, [initialTask]);
+
 
   const handleIncrease = () => {
     setTask((prevTask) => ({ ...prevTask, no: prevTask.no + 1 }));
@@ -41,7 +50,11 @@ const AlertContent = ({ button, index }: props) => {
 
   const handleSubmit = async () => {
     if (task.text.length >= 2) {
-      dispatch(addPomoTask(task));
+      if (index !== undefined) {
+        dispatch(updateTask({ index, task }));
+      } else {
+        dispatch(addPomoTask(task));
+      }
     }
   };
 

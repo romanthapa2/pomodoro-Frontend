@@ -21,6 +21,7 @@ const TaskCard: React.FC<taskCardProp> = ({ task, index }) => {
           className="bg-inherit hover:bg-transparent p-2 "
           button={<PiDotsThreeOutlineVerticalThin/>}
           index={index}
+          initialTask={task} 
         />
       </div>
     </div>

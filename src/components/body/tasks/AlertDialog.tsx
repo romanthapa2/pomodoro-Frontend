@@ -2,13 +2,20 @@ import { AlertDialog, AlertDialogContent, AlertDialogTrigger } from "@/component
 import AlertContent from "./AlertDialogContent";
 import { ReactNode } from "react";
 
+
+interface Task {
+  text: string;
+  no: number;
+}
+
 interface props {
   button: ReactNode;
   className: string;
   index?: number;
+  initialTask?: Task;
 }
 
-export function AlertDialogDemo({ button, className, index }: props) {
+export function AlertDialogDemo({ button, className, index, initialTask }: props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -17,7 +24,7 @@ export function AlertDialogDemo({ button, className, index }: props) {
         </button>
       </AlertDialogTrigger>
       <AlertDialogContent>
-        <AlertContent button={button} index={index} />
+        <AlertContent button={button} index={index} initialTask={initialTask} />
       </AlertDialogContent>
     </AlertDialog>
   );
