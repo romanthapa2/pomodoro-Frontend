@@ -1,6 +1,6 @@
 import { AlertDialog, AlertDialogContent, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import AlertContent from "./AlertDialogContent";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 
 interface Task {
@@ -16,15 +16,20 @@ interface props {
 }
 
 export function AlertDialogDemo({ button, className, index, initialTask }: props) {
+  const [open,setOpen]=useState(false);
+  const handleClose=()=>{
+    setOpen(false);
+  }
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <button className={`${className}`}>
+        <button className={`${className}`} onClick={() => setOpen(true)}>
         {button}
         </button>
       </AlertDialogTrigger>
       <AlertDialogContent>
-        <AlertContent button={button} index={index} initialTask={initialTask} />
+        <AlertContent button={button} index={index} initialTask={initialTask}
+         onClose={handleClose}/>
       </AlertDialogContent>
     </AlertDialog>
   );

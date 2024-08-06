@@ -16,6 +16,7 @@ interface props {
   button: ReactNode;
   index?: number;
   initialTask?: taskType;
+  onClose: () => void;
 }
 interface taskType {
   no: number;
@@ -23,7 +24,7 @@ interface taskType {
 }
 
 // when i click the add or edit button this component will show up
-const AlertContent = ({ button, index, initialTask }: props) => {
+const AlertContent = ({ button, index, initialTask,onClose }: props) => {
   const dispatch = useAppDispatch();
   const [task, setTask] = useState<taskType>({ no: 1, text: "" });
 
@@ -61,6 +62,7 @@ const AlertContent = ({ button, index, initialTask }: props) => {
   const handleDeleteTask = () => {
     if (index !== undefined) {
       dispatch(deleteTask(index));
+      onClose();
     }
   };
 
@@ -89,8 +91,8 @@ const AlertContent = ({ button, index, initialTask }: props) => {
         </button>
       </div>
       <AlertDialogFooter>
-        {typeof button === "object" && <Button onClick={handleDeleteTask}>Delete</Button>}
-        <AlertDialogCancel>Cancel</AlertDialogCancel>
+        {typeof button === "object" && <Button onClick={handleDeleteTask} >Delete</Button>}
+        <AlertDialogCancel onClick={onClose}>Cancel</AlertDialogCancel>
         <AlertDialogAction onClick={handleSubmit}>Continue</AlertDialogAction>
       </AlertDialogFooter>
     </>
