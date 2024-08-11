@@ -24,7 +24,7 @@ const Task: React.FC = () => {
           <div className="mb-5 mt-5 text-white text-xl">Tasks</div>
           <PiDotsThreeOutlineVerticalThin
             onClick={handleClearTask}
-            className="bg-slate-300 text-xl p-2 h-10 w-8"
+            className="bg-slate-300 text-xl p-2 h-10 w-8 rounded-md"
           />
         </div>
         <div className="w-full flex flex-col justify-center">

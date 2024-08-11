@@ -24,7 +24,7 @@ interface taskType {
 }
 
 // when i click the add or edit button this component will show up
-const AlertContent = ({ button, index, initialTask,onClose }: props) => {
+const AlertDialogContent = ({ button, index, initialTask,onClose }: props) => {
   const dispatch = useAppDispatch();
   const [task, setTask] = useState<taskType>({ no: 1, text: "" });
 
@@ -99,4 +99,4 @@ const AlertContent = ({ button, index, initialTask,onClose }: props) => {
   );
 };
 
-export default AlertContent;
+export default AlertDialogContent;
