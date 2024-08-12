@@ -1,56 +1,15 @@
-import React, { useEffect, useState, useRef } from "react";
-import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectPomodoroTime, selectLongBreak, selectShortBreak } from "../../../reduxstore/TimeSlice";
-
-dayjs.extend(duration);
-
+import useTimer from "./useTimer"; 
 const Timer: React.FC = () => {
   const pomodoroTime = useSelector(selectPomodoroTime);
   const shortBreakTime = useSelector(selectShortBreak);
   const longBreakTime = useSelector(selectLongBreak);
 
-  const [status, setStatus] = useState<"Start" | "Pause">("Pause");
+  const { time, status, startPauseTimer, resetTimer } = useTimer(pomodoroTime);
+
   const [activeButton, setActiveButton] = useState<"Pomodoro" | "Short Break" | "Long Break">("Pomodoro");
-  const [endTimeRedux, setEndTimeRedux] = useState<number>(pomodoroTime);
-  const [time, setTime] = useState<string>(`${endTimeRedux} : 00`);
-
-  const endTime = useRef(dayjs().add(endTimeRedux, "minutes"));
-  const timerId = useRef<number | null>(null);
-  const timeLeft = useRef(endTime.current.unix() - dayjs().unix());
-
-  const twoDP = (n: number) => (n > 9 ? n.toString() : `0${n}`);
-
-  const updateTimer = () => {
-    const differenceTime = endTime.current.unix() - dayjs().unix();
-    if (differenceTime <= 0) {
-      clearInterval(timerId.current!);
-      setStatus("Pause");
-    }
-    const remainingDuration = dayjs.duration(differenceTime * 1000, "milliseconds");
-    setTime(`${twoDP(remainingDuration.minutes())} : ${twoDP(remainingDuration.seconds())}`);
-  };
-
-  useEffect(() => {
-    if (status === "Start") {
-      timerId.current = window.setInterval(updateTimer, 1000);
-    } else {
-      clearInterval(timerId.current!);
-    }
-
-    return () => clearInterval(timerId.current!);
-  }, [status]);
-
-  const handleStartPause = () => {
-    if (status === "Pause") {
-      endTime.current = dayjs().add(timeLeft.current, "seconds");
-      setStatus("Start");
-    } else {
-      timeLeft.current = endTime.current.unix() - dayjs().unix();
-      setStatus("Pause");
-    }
-  };
 
   useEffect(() => {
     const newTime =
@@ -59,17 +18,11 @@ const Timer: React.FC = () => {
         : activeButton === "Short Break"
         ? shortBreakTime
         : longBreakTime;
-    setEndTimeRedux(newTime);
-    setTime(`${newTime} : 00`);
-    endTime.current = dayjs().add(newTime, "minutes");
-    timeLeft.current = endTime.current.unix() - dayjs().unix();
+    resetTimer(newTime);
   }, [pomodoroTime, shortBreakTime, longBreakTime, activeButton]);
 
   const handleButtonClick = (type: "Pomodoro" | "Short Break" | "Long Break", time: number) => {
-    clearInterval(timerId.current!);
-    setEndTimeRedux(time);
-    setTime(`${time} : 00`);
-    setStatus("Pause");
+    resetTimer(time);
     setActiveButton(type);
   };
 
@@ -104,7 +57,7 @@ const Timer: React.FC = () => {
 
         <div className="h-20 w-full flex justify-center items-center">
           <button
-            onClick={handleStartPause}
+            onClick={startPauseTimer}
             className="px-4 py-3 text-gray-700 bg-white h-16 w-48 text-3xl rounded-lg">
             {status === "Pause" ? "START" : "PAUSE"}
           </button>
