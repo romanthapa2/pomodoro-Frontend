@@ -3,6 +3,7 @@ import { MdOutlineAssignmentInd } from "react-icons/md";
 import TimeSettings from "./settings/TimeSettingOpener";
 import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
 import ViewReport from "./report/ViewReport";
+import { Link } from "react-router-dom";
 
 const NavbarHome: React.FC = () => {
   return (
@@ -13,10 +14,10 @@ const NavbarHome: React.FC = () => {
       <div className="flex gap-2 text-xl md:text-sm">
         <ViewReport />
         <TimeSettings />
-        <button className="bg-gray-600 flex flex-row items-center p-2 rounded-md  gap-1">
+        <Link to="/signup" className="bg-gray-600 flex flex-row items-center p-2 rounded-md  gap-1">
           <MdOutlineAssignmentInd />
           <span className="hidden md:inline-block">Sign In </span>
-        </button>
+        </Link>
         <button className="bg-gray-600 flex flex-row items-center rounded-md  p-2 ">
           <PiDotsThreeOutlineVerticalThin />
         </button>
