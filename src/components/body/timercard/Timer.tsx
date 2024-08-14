@@ -1,54 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectPomodoroTime, selectLongBreak, selectShortBreak } from "../../../reduxstore/TimeSlice";
-import useTimer from "./useTimer"; 
+import useTimer from "./useTimer";
+
 const Timer: React.FC = () => {
   const pomodoroTime = useSelector(selectPomodoroTime);
   const shortBreakTime = useSelector(selectShortBreak);
   const longBreakTime = useSelector(selectLongBreak);
 
-  const { time, status, startPauseTimer, resetTimer } = useTimer(pomodoroTime);
-
+  const { time, status, startPauseTimer, resetTimer} = useTimer(pomodoroTime);
   const [activeButton, setActiveButton] = useState<"Pomodoro" | "Short Break" | "Long Break">("Pomodoro");
 
+  const buttonConfigs = [
+    { label: "Pomodoro", time: pomodoroTime },
+    { label: "Short Break", time: shortBreakTime },
+    { label: "Long Break", time: longBreakTime },
+  ] as const;
+
   useEffect(() => {
-    const newTime =
-      activeButton === "Pomodoro"
-        ? pomodoroTime
-        : activeButton === "Short Break"
-        ? shortBreakTime
-        : longBreakTime;
-    resetTimer(newTime);
+    const activeConfig = buttonConfigs.find((config) => config.label === activeButton);
+    resetTimer(activeConfig?.time ?? pomodoroTime);
   }, [pomodoroTime, shortBreakTime, longBreakTime, activeButton]);
 
-  const handleButtonClick = (type: "Pomodoro" | "Short Break" | "Long Break", time: number) => {
+  const handleButtonClick = (label: "Pomodoro" | "Short Break" | "Long Break", time: number) => {
+    setActiveButton(label);
     resetTimer(time);
-    setActiveButton(type);
   };
 
   return (
     <div className="text-white bg-gray-500 h-fit mx-2 mt-10 md:mx-[30%] rounded-md">
       <div className="p-5">
         <div className="flex justify-center items-center h-8">
-          <button
-            onClick={() => handleButtonClick("Pomodoro", pomodoroTime)}
-            className={`px-3 py-1 rounded-md ${activeButton === "Pomodoro" ? "bg-gray-700" : "bg-gray-500"}`}>
-            Pomodoro
-          </button>
-          <button
-            onClick={() => handleButtonClick("Short Break", shortBreakTime)}
-            className={`px-3 py-1 rounded-md ${
-              activeButton === "Short Break" ? "bg-gray-700" : "bg-gray-500"
-            }`}>
-            Short Break
-          </button>
-          <button
-            onClick={() => handleButtonClick("Long Break", longBreakTime)}
-            className={`px-3 py-1 rounded-md ${
-              activeButton === "Long Break" ? "bg-gray-700" : "bg-gray-500"
-            }`}>
-            Long Break
-          </button>
+          {buttonConfigs.map((config) => (
+            <button
+              key={config.label}
+              onClick={() => handleButtonClick(config.label, config.time)}
+              className={`px-3 py-1 rounded-md ${activeButton === config.label ? "bg-gray-700" : "bg-gray-500"}`}
+            >
+              {config.label}
+            </button>
+          ))}
         </div>
 
         <div className="flex justify-center items-center h-32" style={{ fontSize: "6rem" }}>
@@ -58,7 +49,8 @@ const Timer: React.FC = () => {
         <div className="h-20 w-full flex justify-center items-center">
           <button
             onClick={startPauseTimer}
-            className="px-4 py-3 text-gray-700 bg-white h-16 w-48 text-3xl rounded-lg">
+            className="px-4 py-3 text-gray-700 bg-white h-16 w-48 text-3xl rounded-lg"
+          >
             {status === "Pause" ? "START" : "PAUSE"}
           </button>
         </div>
