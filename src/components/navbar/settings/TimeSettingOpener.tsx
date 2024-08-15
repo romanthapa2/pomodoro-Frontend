@@ -12,7 +12,7 @@ import {
 const TimeSettings:React.FC = ()=>{
     return (
         <AlertDialog>
-      <AlertDialogTrigger className="flex items-center bg-slate-600 p-1.5 rounded-md" >
+      <AlertDialogTrigger className="flex items-center bg-slate-600 p-1.5 rounded-md gap-1" >
       <IoSettingsOutline />
       <span className="hidden md:inline-block">Settings</span>
         </AlertDialogTrigger>

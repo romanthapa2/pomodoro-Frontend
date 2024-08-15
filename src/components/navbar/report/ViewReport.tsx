@@ -12,7 +12,7 @@ import ReportContent from "./ReportContent";
 const viewReport = () => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="flex items-center bg-slate-600 p-1.5 rounded-md" >
+      <AlertDialogTrigger className="flex items-center bg-slate-600 p-1.5 rounded-md gap-1" >
       <TbReportAnalytics />
       <span className="hidden md:inline-block">Report</span>
         </AlertDialogTrigger>

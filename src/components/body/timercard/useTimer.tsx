@@ -6,7 +6,7 @@ dayjs.extend(duration);
 
 const useTimer = (initialTime: number) => {
   const [status, setStatus] = useState<"Start" | "Pause">("Pause");
-  const [time, setTime] = useState<string>(`${initialTime} : 00`);
+  const [time, setTime] = useState<string>(`${initialTime}:00`);
 
   const endTime = useRef(dayjs().add(initialTime, "minutes"));
   const timerId = useRef<number | null>(null);
@@ -32,7 +32,7 @@ const useTimer = (initialTime: number) => {
     }
 
     const remainingDuration = dayjs.duration(differenceTime * 1000, "milliseconds");
-    setTime(`${twoDP(remainingDuration.minutes())} : ${twoDP(remainingDuration.seconds())}`);
+    setTime(`${twoDP(remainingDuration.minutes())}:${twoDP(remainingDuration.seconds())}`);
   };
 
   useEffect(() => {
