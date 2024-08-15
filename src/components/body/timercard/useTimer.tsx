@@ -51,6 +51,12 @@ const useTimer = (initialTime: number) => {
     return () => clearInterval(timerId.current!);
   }, [status]);
 
+
+    useEffect(() => {
+      document.title = `${time} - Time to focus`;
+    }, [time]);
+  
+
   const startPauseTimer = () => {
     if (status === "Start") {
       timeLeft.current = endTime.current.unix() - dayjs().unix();
@@ -63,7 +69,7 @@ const useTimer = (initialTime: number) => {
 
   const resetTimer = (newTime: number) => {
     clearInterval(timerId.current!);
-    setTime(`${newTime} : 00`);
+    setTime(`${newTime}:00`);
     setStatus("Pause");
     endTime.current = dayjs().add(newTime, "minutes");
     timeLeft.current = endTime.current.unix() - dayjs().unix();
