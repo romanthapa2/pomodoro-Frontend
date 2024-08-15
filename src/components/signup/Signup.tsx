@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 // import Cookies from "js-cookie"
 
@@ -60,7 +61,7 @@ const Signup: React.FC = () => {
         </form>
       </div>
       <div className="">
-      <h1>Already have an account? <span className="underline">Log in</span></h1>
+      <h1>Already have an account? <Link className="underline" to={"/login"}>Log in</Link></h1>
       
       </div>
     </div>
