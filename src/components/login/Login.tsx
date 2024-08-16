@@ -1,34 +1,34 @@
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { FcGoogle } from "react-icons/fc";
-// import { useNavigate } from "react-router-dom";
-// import Cookies from "js-cookie"
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie"
 
 interface formState {
   email: string;
   password: string;
 }
 const Login = () => {
-  //   let history = useNavigate();
+    let history = useNavigate();
   const [value, setvalue] = useState<formState>({ email: "", password: "" });
-  //   const handleSubmit = async (e) => {
-  //     e.preventDefault();
-  //     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/login`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ email: value.email, password: value.password }),
-  //     });
-  //     const json = await response.json();
+    const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: value.email, password: value.password }),
+      });
+      const json = await response.json();
 
-  //     if (json.success) {
-  //       Cookies.set('accessToken', json.data.accessToken);
-  //       history("/");
-  //     } else {
-  //       return <h1>error</h1>
-  //     }
-  //   };
+      if (json.success) {
+        Cookies.set('accessToken', json.data.accessToken);
+        history("/");
+      } else {
+        return <h1>error</h1>
+      }
+    };
   // sets the value when user types in the input form
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setvalue({ ...value, [e.target.name]: e.target.value });
@@ -50,8 +50,8 @@ const Login = () => {
           <span className="px-4 text-gray-700">or</span>
           <div className="flex-1 border-t border-gray-300"></div>
         </div>
-        {/* onSubmit={handleSubmit} */}
-        <form className="w-5/6">
+
+        <form className="w-5/6" onSubmit={handleSubmit}>
           <span className="text-slate-500 text-sm">Email</span>
           <div className="flex flex-col  mb-3 mt-1">
             <input
