@@ -11,6 +11,7 @@ import { addPomoTask,updateTask } from "@/reduxstore/TaskSlice";
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { deleteTask } from "@/reduxstore/TaskSlice";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 interface props {
   button: ReactNode;
@@ -69,8 +70,10 @@ const AlertDialogContent = ({ button, index, initialTask,onClose }: props) => {
   return (
     <>
       {/* if not having title and description it throws error so i am putting this two line of code */}
-      <AlertDialogTitle className="hidden">feff</AlertDialogTitle>
-      <AlertDialogDescription className="hidden">feofe</AlertDialogDescription>
+      <VisuallyHidden>
+        <AlertDialogTitle>Dialog Title</AlertDialogTitle>
+        <AlertDialogDescription>Description of the dialog content</AlertDialogDescription>
+      </VisuallyHidden>
       <input
         className="focus:outline-none focus:border-none text-2xl"
         type="text"

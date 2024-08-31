@@ -9,7 +9,7 @@ const initialState: taskType = {
   pomoTask: [],
 };
 
-interface Task {
+export interface Task {
   text: string;
   no: number;
 }
@@ -18,7 +18,7 @@ const taskSlice = createSlice({
   name: "task",
   initialState,
   reducers: {
-    addPomoTask: (state, action: PayloadAction<object>) => {
+    addPomoTask: (state, action: PayloadAction<{task:Task}>) => {
       state.pomoTask.push(action.payload);
     },
     updateTask: (state, action: PayloadAction<{ index: number; task: Task }>) => {
@@ -37,5 +37,5 @@ const taskSlice = createSlice({
 
 export const { addPomoTask,updateTask, deleteTask, clearTask } = taskSlice.actions;
 export const selectPomoTask = (state: RootState) => state.taskSlice.pomoTask;
-
+export const selectPomoTaskFirst = (state: RootState) => state.taskSlice.pomoTask[0];
 export default taskSlice.reducer;

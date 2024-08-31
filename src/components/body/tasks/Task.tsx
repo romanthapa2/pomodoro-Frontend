@@ -1,15 +1,13 @@
 import { AlertDialogDemo } from "./AlertDialog";
 import { useSelector } from "react-redux";
 import { selectPomoTask } from "@/reduxstore/TaskSlice";
+import type { Task } from "@/reduxstore/TaskSlice";
 import TaskCard from "./TaskCard";
 import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
 import { clearTask } from "@/reduxstore/TaskSlice";
 import { useAppDispatch } from "@/reduxstore/AppHooks";
 
-interface Task {
-  text: string;
-  no: number;
-}
+
 
 const Task: React.FC = () => {
   const dispatch = useAppDispatch();

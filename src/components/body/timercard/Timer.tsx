@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectPomodoroTime, selectLongBreak, selectShortBreak } from "../../../reduxstore/TimeSlice";
 import useTimer from "./useTimer";
+import { Button } from "@/components/ui/button";
 
 const Timer: React.FC = () => {
   const pomodoroTime = useSelector(selectPomodoroTime);
@@ -20,7 +21,7 @@ const Timer: React.FC = () => {
   useEffect(() => {
     const activeConfig = buttonConfigs.find((config) => config.label === activeButton);
     resetTimer(activeConfig?.time ?? pomodoroTime);
-  }, [pomodoroTime, shortBreakTime, longBreakTime, activeButton]);
+  }, [ pomodoroTime,resetTimer,activeButton]);
 
   const handleButtonClick = (label: "Pomodoro" | "Short Break" | "Long Break", time: number) => {
     setActiveButton(label);
@@ -30,16 +31,16 @@ const Timer: React.FC = () => {
   return (
     <div className="text-white bg-gray-500 h-fit mx-2 mt-10 md:mx-[30%] rounded-md">
       <div className="p-5">
-        <div className="flex justify-center items-center h-8">
+        <div className="flex justify-center items-center h-10">
           {buttonConfigs.map((config) => (
-            <button
+            <Button
               key={config.label}
               onClick={() => handleButtonClick(config.label, config.time)}
-              className={`px-3 py-1 rounded-md ${
+              className={` rounded-md ${
                 activeButton === config.label ? "bg-gray-700" : "bg-gray-500"
               }`}>
               {config.label}
-            </button>
+            </Button>
           ))}
         </div>
 

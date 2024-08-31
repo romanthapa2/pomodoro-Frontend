@@ -1,10 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+import createTask from "./postFunctionCall"
+import { useSelector } from "react-redux";
+import type { Task } from "@/reduxstore/TaskSlice";
+import { selectPomoTaskFirst } from "@/reduxstore/TaskSlice";
 
 dayjs.extend(duration);
 
 const useTimer = (initialTime: number) => {
+  const selectedTask = useSelector(selectPomoTaskFirst) as Task;
   const [status, setStatus] = useState<"Start" | "Pause">("Pause");
   const [time, setTime] = useState<string>(`${initialTime}:00`);
 
@@ -29,6 +34,10 @@ const useTimer = (initialTime: number) => {
       clearInterval(timerId.current!);
       setStatus("Pause");
       calculateTotalPausedTime(); // Run the function to calculate pause time
+      createTask({
+        task: selectedTask.text,
+        total_minutes: initialTime,
+      })
     }
 
     const remainingDuration = dayjs.duration(differenceTime * 1000, "milliseconds");
