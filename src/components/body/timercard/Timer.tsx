@@ -21,7 +21,7 @@ const Timer: React.FC = () => {
   useEffect(() => {
     const activeConfig = buttonConfigs.find((config) => config.label === activeButton);
     resetTimer(activeConfig?.time ?? pomodoroTime);
-  }, [ pomodoroTime,resetTimer,activeButton]);
+  }, [ pomodoroTime,shortBreakTime, longBreakTime,activeButton]);
 
   const handleButtonClick = (label: "Pomodoro" | "Short Break" | "Long Break", time: number) => {
     setActiveButton(label);
