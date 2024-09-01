@@ -7,20 +7,20 @@ import Cookies from "js-cookie"
 
 interface formState {
   email: string;
+  password: string;
 }
 
 const Signup: React.FC = () => {
-    let history = useNavigate();
-  const [value, setvalue] = useState<formState>({email: ""});
+    const history = useNavigate();
+  const [value, setvalue] = useState<formState>({email: "",password: "",});
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const {email} = value;
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/register`, {
+      const response = await fetch(`http://localhost:5000/api/user/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(email),
+        body: JSON.stringify({ email: value.email, password: value.password }),
       });
       const json = await response.json();
       if (json.success) {
@@ -38,7 +38,7 @@ const Signup: React.FC = () => {
     <div className="h-screen bg-black text-white flex justify-center flex-col items-center gap-y-6 ">
       <h1 className="text-4xl font-bold">Pomofocus</h1>
       <h1 className="font-bold">Create Account</h1>
-      <div className="h-[45%] bg-white text-black w-96 rounded-md flex flex-col justify-center items-center">
+      <div className="h-[55%] bg-white text-black w-96 rounded-md flex flex-col justify-center items-center">
         <Button className=" mb-3 bg-white text-black border w-5/6  hover:bg-transparent shadow-md">
         <FcGoogle className="text-lg mr-2"/>
           Signup with Google
@@ -61,6 +61,16 @@ const Signup: React.FC = () => {
               
               minLength={5}
               required
+            />
+          </div>
+          <span className="text-slate-500 text-sm">Password</span>
+          <div className="flex flex-col mb-5 mt-1">
+            <input
+              name="password"
+              type="password"
+              placeholder="password"
+              className=" p-2 bg-slate-100 rounded-md focus:outline-none"
+              onChange={onChange}
             />
           </div>
           <Button type="submit" className="w-full text-white bg-black rounded-lg mt-6" >

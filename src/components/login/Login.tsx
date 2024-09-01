@@ -9,11 +9,11 @@ interface formState {
   password: string;
 }
 const Login = () => {
-    let history = useNavigate();
+    const history = useNavigate();
   const [value, setvalue] = useState<formState>({ email: "", password: "" });
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/user/login`, {
+      const response = await fetch(`http://localhost:5000/api/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,6 +67,7 @@ const Login = () => {
             <input
               name="password"
               type="password"
+              placeholder="password"
               className=" p-2 bg-slate-100 rounded-md focus:outline-none"
               onChange={onChange}
             />

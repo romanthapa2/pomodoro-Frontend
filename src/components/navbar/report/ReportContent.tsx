@@ -4,11 +4,11 @@ const ReportContent = () => {
   return (
     <Tabs defaultValue="account" className="w-full">
       <TabsList className="flex justify-evenly items-center">
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsTrigger value="Summery" className="w-1/2">Summery</TabsTrigger>
+        <TabsTrigger value="Details" className="w-1/2">Details</TabsTrigger>
       </TabsList>
-      <TabsContent value="account">Make changes to your account here.</TabsContent>
-      <TabsContent value="password">Change your password here.</TabsContent>
+      <TabsContent value="Summery">Make changes to your account here.</TabsContent>
+      <TabsContent value="Details">Change your password here.</TabsContent>
     </Tabs>
   );
 };

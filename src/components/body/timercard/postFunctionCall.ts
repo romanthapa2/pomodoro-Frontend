@@ -7,7 +7,7 @@ interface Task {
 
 export default async function createTask(taskData: Task) {
   try {
-    const response = await axios.post('/api/tasks', taskData, {
+    const response = await axios.post('/api/task/tasks', taskData, {
       headers: {
         'Content-Type': 'application/json',
       },
