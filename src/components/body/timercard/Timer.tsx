@@ -9,7 +9,16 @@ const Timer: React.FC = () => {
   const shortBreakTime = useSelector(selectShortBreak);
   const longBreakTime = useSelector(selectLongBreak);
 
-  const { time, status, startPauseTimer, resetTimer } = useTimer(pomodoroTime);
+  const handleTimerEnd = () => {
+    // Automatically switch to "Short Break" when the Pomodoro timer ends
+    if (activeButton === "Pomodoro") {
+      setActiveButton("Short Break");
+      resetTimer(shortBreakTime);
+    }
+  };
+
+
+  const { time, status, startPauseTimer, resetTimer } = useTimer(pomodoroTime,handleTimerEnd);
   const [activeButton, setActiveButton] = useState<"Pomodoro" | "Short Break" | "Long Break">("Pomodoro");
 
   const buttonConfigs = [
@@ -31,12 +40,12 @@ const Timer: React.FC = () => {
   return (
     <div className="text-white bg-gray-500 h-fit mx-2 mt-10 md:mx-[30%] rounded-md">
       <div className="p-5">
-        <div className="flex justify-center items-center h-10">
+        <div className="flex justify-center items-center h-10 space-x-2">
           {buttonConfigs.map((config) => (
             <Button
               key={config.label}
               onClick={() => handleButtonClick(config.label, config.time)}
-              className={` rounded-md ${
+              className={`h-8 w-25 rounded-md ${
                 activeButton === config.label ? "bg-gray-700" : "bg-gray-500"
               }`}>
               {config.label}

@@ -5,9 +5,11 @@ interface Task {
   total_minutes: number;
 }
 
+axios.defaults.withCredentials = true;
+
 export default async function createTask(taskData: Task) {
   try {
-    const response = await axios.post('/api/task/tasks', taskData, {
+    const response = await axios.post('http://localhost:5000/api/task/tasks', taskData, {
       headers: {
         'Content-Type': 'application/json',
       },

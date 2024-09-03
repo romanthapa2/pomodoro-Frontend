@@ -6,8 +6,7 @@ import TaskCard from "./TaskCard";
 import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
 import { clearTask } from "@/reduxstore/TaskSlice";
 import { useAppDispatch } from "@/reduxstore/AppHooks";
-
-
+import { useState } from "react";
 
 const Task: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -15,6 +14,12 @@ const Task: React.FC = () => {
     dispatch(clearTask());
   };
   const pomoTask = useSelector(selectPomoTask) as Task[];
+  const [selectedTaskIndex, setSelectedTaskIndex] = useState(0);
+
+  const handleTaskClick = (index: number) => {
+    setSelectedTaskIndex(index);
+  };
+
   return (
     <>
       <div className=" h-full mx-2 md:mx-[30%] flex flex-col justify-start items-center mt-8 px-3">
@@ -27,10 +32,18 @@ const Task: React.FC = () => {
         </div>
         <div className="w-full flex flex-col justify-center">
           {pomoTask.map((task, index) => (
-            <TaskCard task={task} key={index} index={index} />
+            <TaskCard
+              task={task}
+              index={index}
+              isSelected={index === selectedTaskIndex}
+              onClick={() => handleTaskClick(index)}
+            />
           ))}
         </div>
-        <AlertDialogDemo className="w-full h-14 my-6 bg-white rounded-lg" button="ADD Task" />
+        <AlertDialogDemo
+          className="w-full h-14 my-6 bg-white rounded-lg"
+          button="ADD Task"
+        />
       </div>
     </>
   );

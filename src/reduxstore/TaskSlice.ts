@@ -18,7 +18,7 @@ const taskSlice = createSlice({
   name: "task",
   initialState,
   reducers: {
-    addPomoTask: (state, action: PayloadAction<{task:Task}>) => {
+    addPomoTask: (state, action: PayloadAction<Task>) => {
       state.pomoTask.push(action.payload);
     },
     updateTask: (state, action: PayloadAction<{ index: number; task: Task }>) => {

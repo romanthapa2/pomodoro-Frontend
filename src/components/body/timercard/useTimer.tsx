@@ -8,8 +8,9 @@ import { selectPomoTaskFirst } from "@/reduxstore/TaskSlice";
 
 dayjs.extend(duration);
 
-const useTimer = (initialTime: number) => {
+const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
   const selectedTask = useSelector(selectPomoTaskFirst) as Task;
+
   const [status, setStatus] = useState<"Start" | "Pause">("Pause");
   const [time, setTime] = useState<string>(`${initialTime}:00`);
 
@@ -31,6 +32,7 @@ const useTimer = (initialTime: number) => {
   const updateTimer = () => {
     const differenceTime = endTime.current.unix() - dayjs().unix();
     if (differenceTime <= 0) {
+      
       clearInterval(timerId.current!);
       setStatus("Pause");
       calculateTotalPausedTime(); // Run the function to calculate pause time
@@ -38,6 +40,10 @@ const useTimer = (initialTime: number) => {
         task: selectedTask.text,
         total_minutes: initialTime,
       })
+      if (onTimerEnd) {
+        onTimerEnd(); // Trigger the callback when the timer ends
+      }
+      return;
     }
 
     const remainingDuration = dayjs.duration(differenceTime * 1000, "milliseconds");
@@ -85,7 +91,6 @@ const useTimer = (initialTime: number) => {
     totalPauseTime.current = 0; // Reset pause time
     pauseStartTime.current = null; // Clear any existing pause time
   };
-  console.log(totalPauseTime.current)
 
 
   return {
