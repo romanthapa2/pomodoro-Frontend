@@ -5,7 +5,7 @@ interface Task {
   total_minutes: number;
 }
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 export default async function createTask(taskData: Task) {
   try {
@@ -13,6 +13,7 @@ export default async function createTask(taskData: Task) {
       headers: {
         'Content-Type': 'application/json',
       },
+      withCredentials:true
     });
     console.log('Task created:', response.data);
   } catch (error) {

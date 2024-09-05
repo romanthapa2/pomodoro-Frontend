@@ -20,14 +20,14 @@ interface props {
   onClose: () => void;
 }
 interface taskType {
-  no: number;
+  setTaskNo : number;
   text: string;
 }
 
 // when i click the add or edit button this component will show up
 const AlertDialogContent = ({ button, index, initialTask,onClose }: props) => {
   const dispatch = useAppDispatch();
-  const [task, setTask] = useState<taskType>({ no: 1, text: "" });
+  const [task, setTask] = useState<taskType>({ setTaskNo: 1, text: "" });
 
 
   useEffect(() => {
@@ -38,11 +38,11 @@ const AlertDialogContent = ({ button, index, initialTask,onClose }: props) => {
 
 
   const handleIncrease = () => {
-    setTask((prevTask) => ({ ...prevTask, no: prevTask.no + 1 }));
+    setTask((prevTask) => ({ ...prevTask, setTaskNo: prevTask.setTaskNo + 1 }));
   };
   const handleDecrease = () => {
-    if (task.no >= 2) {
-      setTask((prevTask) => ({ ...prevTask, no: prevTask.no - 1 }));
+    if (task.setTaskNo >= 2) {
+      setTask((prevTask) => ({ ...prevTask, setTaskNo: prevTask.setTaskNo - 1 }));
     }
   };
 
@@ -84,7 +84,7 @@ const AlertDialogContent = ({ button, index, initialTask,onClose }: props) => {
       />
       <h2 className="font-medium">Estimated Pomodoros</h2>
       <div className="flex flex-row">
-        <h3 className="bg-slate-300 w-20 px-2 py-1 text-lg rounded">{task.no}</h3>
+        <h3 className="bg-slate-300 w-20 px-2 py-1 text-lg rounded">{task.setTaskNo}</h3>
 
         <button className="mx-4 border px-2 py-1 text-lg rounded" onClick={handleIncrease}>
           up

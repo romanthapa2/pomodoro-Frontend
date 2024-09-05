@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
-import createTask from "./postFunctionCall"
+import createTask from "./postFunctionCall";
 import { useSelector } from "react-redux";
 import type { Task } from "@/reduxstore/TaskSlice";
 import { selectPomoTaskFirst } from "@/reduxstore/TaskSlice";
@@ -9,6 +9,7 @@ import { selectPomoTaskFirst } from "@/reduxstore/TaskSlice";
 dayjs.extend(duration);
 
 const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
+  // const dispatch = useDispatch();
   const selectedTask = useSelector(selectPomoTaskFirst) as Task;
 
   const [status, setStatus] = useState<"Start" | "Pause">("Pause");
@@ -32,29 +33,45 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
   const updateTimer = () => {
     const differenceTime = endTime.current.unix() - dayjs().unix();
     if (differenceTime <= 0) {
-      
       clearInterval(timerId.current!);
       setStatus("Pause");
       calculateTotalPausedTime(); // Run the function to calculate pause time
       createTask({
         task: selectedTask.text,
         total_minutes: initialTime,
-      })
+      });
+
+      // if (selectedTaskIndex !== undefined && pomoTask[selectedTaskIndex]) {
+      //   const updatedTask = {
+      //     ...pomoTask[selectedTaskIndex],
+      //     no: pomoTask[selectedTaskIndex].no + 1,
+      //   };
+      //   dispatch(updateTask({ index: selectedTaskIndex, task: updatedTask }));
+      // }
+
       if (onTimerEnd) {
         onTimerEnd(); // Trigger the callback when the timer ends
       }
       return;
     }
 
-    const remainingDuration = dayjs.duration(differenceTime * 1000, "milliseconds");
-    setTime(`${twoDP(remainingDuration.minutes())}:${twoDP(remainingDuration.seconds())}`);
+    const remainingDuration = dayjs.duration(
+      differenceTime * 1000,
+      "milliseconds"
+    );
+    setTime(
+      `${twoDP(remainingDuration.minutes())}:${twoDP(
+        remainingDuration.seconds()
+      )}`
+    );
   };
 
   useEffect(() => {
     if (status === "Start") {
       if (pauseStartTime.current) {
         // If resuming from pause, calculate the paused duration
-        totalPauseTime.current += dayjs().unix() - pauseStartTime.current.unix();
+        totalPauseTime.current +=
+          dayjs().unix() - pauseStartTime.current.unix();
         pauseStartTime.current = null;
       }
       timerId.current = window.setInterval(updateTimer, 1000);
@@ -66,11 +83,9 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
     return () => clearInterval(timerId.current!);
   }, [status]);
 
-
-    useEffect(() => {
-      document.title = `${time} - Time to focus`;
-    }, [time]);
-  
+  useEffect(() => {
+    document.title = `${time} - Time to focus`;
+  }, [time]);
 
   const startPauseTimer = () => {
     if (status === "Start") {
@@ -91,7 +106,6 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
     totalPauseTime.current = 0; // Reset pause time
     pauseStartTime.current = null; // Clear any existing pause time
   };
-
 
   return {
     time,

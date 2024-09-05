@@ -11,7 +11,11 @@ const initialState: taskType = {
 
 export interface Task {
   text: string;
-  no: number;
+  setTaskNo : number;
+}
+
+interface updateTask extends Task{
+  completedTaskNo ?: number;
 }
 
 const taskSlice = createSlice({
@@ -21,7 +25,7 @@ const taskSlice = createSlice({
     addPomoTask: (state, action: PayloadAction<Task>) => {
       state.pomoTask.push(action.payload);
     },
-    updateTask: (state, action: PayloadAction<{ index: number; task: Task }>) => {
+    updateTask: (state, action: PayloadAction<{ index: number; task: updateTask }>) => {
       const { index, task } = action.payload;
       state.pomoTask[index] = task;
     },

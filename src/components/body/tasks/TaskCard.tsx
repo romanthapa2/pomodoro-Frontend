@@ -3,7 +3,7 @@ import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
 
 interface Task {
   text: string;
-  no: number;
+  setTaskNo: number;
 }
 
 interface taskCardProp {
@@ -27,7 +27,7 @@ const TaskCard: React.FC<taskCardProp> = ({
     >
       <h3 className="">{task.text}</h3>
       <div className="flex justify-center items-center gap-5">
-        <h3 className="">{task.no}</h3>
+        <h3 className="">0 / {task.setTaskNo}</h3>
         <AlertDialogDemo
           className="bg-inherit hover:bg-transparent p-2 "
           button={<PiDotsThreeOutlineVerticalThin />}

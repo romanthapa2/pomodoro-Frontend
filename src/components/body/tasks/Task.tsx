@@ -1,10 +1,9 @@
 import { AlertDialogDemo } from "./AlertDialog";
 import { useSelector } from "react-redux";
-import { selectPomoTask } from "@/reduxstore/TaskSlice";
+import { selectPomoTask,clearTask } from "@/reduxstore/TaskSlice";
 import type { Task } from "@/reduxstore/TaskSlice";
 import TaskCard from "./TaskCard";
 import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
-import { clearTask } from "@/reduxstore/TaskSlice";
 import { useAppDispatch } from "@/reduxstore/AppHooks";
 import { useState } from "react";
 
@@ -13,6 +12,7 @@ const Task: React.FC = () => {
   const handleClearTask = () => {
     dispatch(clearTask());
   };
+  
   const pomoTask = useSelector(selectPomoTask) as Task[];
   const [selectedTaskIndex, setSelectedTaskIndex] = useState(0);
 
