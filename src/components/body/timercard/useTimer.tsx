@@ -1,15 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
-import createTask from "./postFunctionCall"
-import { useSelector } from "react-redux";
-import type { Task } from "@/reduxstore/TaskSlice";
-import { selectPomoTaskFirst } from "@/reduxstore/TaskSlice";
+// import createTask from "./postFunctionCall";
+// import { useSelector } from "react-redux";
+// import type { Task } from "@/reduxstore/TaskSlice";
+// import { selectPomoTaskFirst } from "@/reduxstore/TaskSlice";
 
 dayjs.extend(duration);
 
 const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
-  const selectedTask = useSelector(selectPomoTaskFirst) as Task;
+  // const selectedTask = useSelector(selectPomoTaskFirst) as Task;
 
   const [status, setStatus] = useState<"Start" | "Pause">("Pause");
   const [time, setTime] = useState<string>(`${initialTime}:00`);
@@ -22,47 +22,31 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
 
   const twoDP = (n: number) => (n > 9 ? n.toString() : `0${n}`);
 
-
   const updateTimer = () => {
     const differenceTime = endTime.current.unix() - dayjs().unix();
     if (differenceTime <= 0) {
       clearInterval(timerId.current!);
       setStatus("Pause");
-      createTask({
-        task: selectedTask.text,
-        total_minutes: initialTime,
-      })
+      // createTask({
+      //   task: selectedTask.text,
+      //   total_minutes: initialTime,
+      // });
       if (onTimerEnd) {
-        onTimerEnd(); 
+        onTimerEnd();
       }
       return;
     }
 
-    const remainingDuration = dayjs.duration(differenceTime * 1000, "milliseconds");
-    setTime(`${twoDP(remainingDuration.minutes())}:${twoDP(remainingDuration.seconds())}`);
+    const remainingDuration = dayjs.duration(
+      differenceTime * 1000,
+      "milliseconds"
+    );
+    setTime(
+      `${twoDP(remainingDuration.minutes())}:${twoDP(
+        remainingDuration.seconds()
+      )}`
+    );
   };
-
-  useEffect(() => {
-    if (status === "Start") {
-      if (pauseStartTime.current) {
-        // If resuming from pause, calculate the paused duration
-        totalPauseTime.current += dayjs().unix() - pauseStartTime.current.unix();
-        pauseStartTime.current = null;
-      }
-      timerId.current = window.setInterval(updateTimer, 1000);
-    } else {
-      clearInterval(timerId.current!);
-      pauseStartTime.current = dayjs(); // Set pause start time
-    }
-
-    return () => clearInterval(timerId.current!);
-  }, [status]);
-
-
-    useEffect(() => {
-      document.title = `${time} - Time to focus`;
-    }, [time]);
-  
 
   const startPauseTimer = () => {
     if (status === "Start") {
@@ -74,6 +58,23 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
     }
   };
 
+  // calculate total pause time and run updatetimer on start
+  useEffect(() => {
+    if (status === "Start") {
+      if (pauseStartTime.current) {
+        totalPauseTime.current +=
+          dayjs().unix() - pauseStartTime.current.unix();
+        pauseStartTime.current = null;
+      }
+      timerId.current = window.setInterval(updateTimer, 1000);
+    } else {
+      clearInterval(timerId.current!);
+      pauseStartTime.current = dayjs();
+    }
+
+    return () => clearInterval(timerId.current!);
+  }, [status]);
+
   const resetTimer = (newTime: number) => {
     clearInterval(timerId.current!);
     setTime(`${newTime}:00`);
@@ -84,6 +85,9 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
     pauseStartTime.current = null; // Clear any existing pause time
   };
 
+  useEffect(() => {
+    document.title = `${time} - Time to focus`;
+  }, [time]);
 
   return {
     time,

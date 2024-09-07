@@ -1,24 +1,31 @@
 import { AlertDialogDemo } from "./AlertDialog";
 import { useSelector } from "react-redux";
-import { selectPomoTask,clearTask } from "@/reduxstore/TaskSlice";
+import { selectPomoTask,clearTask,selectTask } from "@/reduxstore/TaskSlice";
 import type { Task } from "@/reduxstore/TaskSlice";
 import TaskCard from "./TaskCard";
 import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
 import { useAppDispatch } from "@/reduxstore/AppHooks";
-import { useState } from "react";
+import { selectSelectedTaskIndex } from "@/reduxstore/TaskSlice";
+import { useEffect } from "react";
 
 const Task: React.FC = () => {
   const dispatch = useAppDispatch();
   const handleClearTask = () => {
     dispatch(clearTask());
   };
-  
+
+  const selectedTaskIndexFromRedux = useSelector(selectSelectedTaskIndex);
   const pomoTask = useSelector(selectPomoTask) as Task[];
-  const [selectedTaskIndex, setSelectedTaskIndex] = useState(0);
 
   const handleTaskClick = (index: number) => {
-    setSelectedTaskIndex(index);
+    dispatch(selectTask(index));
   };
+
+  useEffect(() => {
+    if (pomoTask.length > 0 && selectedTaskIndexFromRedux === null) {
+      dispatch(selectTask(0));
+    }
+  }, [pomoTask]);
 
   return (
     <>
@@ -35,7 +42,7 @@ const Task: React.FC = () => {
             <TaskCard
               task={task}
               index={index}
-              isSelected={index === selectedTaskIndex}
+              isSelected={index === selectedTaskIndexFromRedux}
               onClick={() => handleTaskClick(index)}
             />
           ))}

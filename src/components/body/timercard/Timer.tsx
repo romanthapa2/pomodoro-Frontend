@@ -30,7 +30,7 @@ const Timer: React.FC = () => {
   >("Pomodoro");
 
   const buttonConfigs = {
-    "Pomodoro": pomodoroTime,
+    Pomodoro: pomodoroTime,
     "Short Break": shortBreakTime,
     "Long Break": longBreakTime,
   } as const;
