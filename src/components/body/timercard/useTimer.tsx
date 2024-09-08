@@ -4,11 +4,17 @@ import duration from "dayjs/plugin/duration";
 import createTask from "./postFunctionCall";
 import { useSelector } from "react-redux";
 import type { Task } from "@/reduxstore/TaskSlice";
-import { selectSelectedTaskIndex,selectPomoTask } from "@/reduxstore/TaskSlice";
+import {
+  selectSelectedTaskIndex,
+  selectPomoTask,
+} from "@/reduxstore/TaskSlice";
+import { updateTask } from "@/reduxstore/TaskSlice";
+import { useAppDispatch } from "@/reduxstore/AppHooks";
 
 dayjs.extend(duration);
 
 const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
+  const dispatch = useAppDispatch();
   const pomoTask = useSelector(selectPomoTask) as Task[];
   const selectedTaskIndex = useSelector(selectSelectedTaskIndex);
 
@@ -28,8 +34,16 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
     if (differenceTime <= 0) {
       clearInterval(timerId.current!);
       setStatus("Pause");
+      if (selectedTaskIndex !== null && pomoTask[selectedTaskIndex]) {
+        const updatedTask = {
+          ...pomoTask[selectedTaskIndex],
+          completedTaskNo:
+            (pomoTask[selectedTaskIndex].completedTaskNo || 0) + 1,
+        };
+        dispatch(updateTask({ index: selectedTaskIndex, task: updatedTask }));
+      }
       createTask({
-        task: pomoTask[selectedTaskIndex??0].text,
+        task: pomoTask[selectedTaskIndex ?? 0].text,
         total_minutes: initialTime,
       });
       if (onTimerEnd) {

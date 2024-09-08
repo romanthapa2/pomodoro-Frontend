@@ -9,6 +9,7 @@ import { ReactNode, useState } from "react";
 interface Task {
   text: string;
   setTaskNo: number;
+  completedTaskNo: number;
 }
 
 interface props {

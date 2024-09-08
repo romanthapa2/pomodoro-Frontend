@@ -16,6 +16,7 @@ const Task: React.FC = () => {
 
   const selectedTaskIndexFromRedux = useSelector(selectSelectedTaskIndex);
   const pomoTask = useSelector(selectPomoTask) as Task[];
+  console.log(pomoTask)
 
   const handleTaskClick = (index: number) => {
     dispatch(selectTask(index));

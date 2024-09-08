@@ -22,12 +22,13 @@ interface props {
 interface taskType {
   setTaskNo : number;
   text: string;
+  completedTaskNo: number;
 }
 
 // when i click the add or edit button this component will show up
 const AlertDialogContent = ({ button, index, initialTask,onClose }: props) => {
   const dispatch = useAppDispatch();
-  const [task, setTask] = useState<taskType>({ setTaskNo: 1, text: "" });
+  const [task, setTask] = useState<taskType>({ setTaskNo: 1, text: "",completedTaskNo: 0 });
 
 
   useEffect(() => {
