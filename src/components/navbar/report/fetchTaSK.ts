@@ -6,6 +6,7 @@ export default async function fetchTask(){
         withCredentials: true,
       });
       return response.data;
+      
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error('Axios error:', error.response?.data);

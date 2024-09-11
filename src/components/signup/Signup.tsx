@@ -15,7 +15,7 @@ const Signup: React.FC = () => {
   const [value, setvalue] = useState<formState>({email: "",password: "",});
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const response = await fetch(`http://localhost:5000/api/user/register`, {
+      const response = await fetch(`http://localhost:5000/api/user/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

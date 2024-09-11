@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import fetchTask from "./fetchTaSK";
 import { Details } from "./Details";
 
@@ -12,33 +12,54 @@ export interface Task {
   __v: number;
 }
 
-
 const ReportContent = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [isDataFetched, setIsDataFetched] = useState(false);
 
-  const handleDetailsClick = async () => {
-    if (!isDataFetched) {
-      const response = await fetchTask();
-      if (response && response.success) {
-        setTasks(response.data.tasks);
-        setIsDataFetched(true); 
+  const [activeTab, setActiveTab] = useState("Summery");
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (activeTab === "Details") {
+        const response = await fetchTask();
+        if (response && response.success) {
+          setTasks(response.data.tasks);
+        }
       }
-    }
-  };
+    };
+    fetchData();
+  }, [activeTab]);
+
 
   return (
-    <Tabs defaultValue="Summery" className="w-full" >
+    <Tabs defaultValue="Summery" className="w-full" onValueChange={setActiveTab}>
       <TabsList className="flex justify-evenly items-center">
-        <TabsTrigger value="Summery" className="w-1/2">Summery</TabsTrigger>
-        <TabsTrigger value="Details" className="w-1/2"  onClick={handleDetailsClick}>Details</TabsTrigger>
+        <TabsTrigger value="Summery" className="w-1/2">
+          Summery
+        </TabsTrigger>
+        <TabsTrigger
+          value="Details"
+          className="w-1/2"
+        >
+          Details
+        </TabsTrigger>
       </TabsList>
-      <TabsContent value="Summery">
-
-      </TabsContent>
-      <TabsContent value="Details" >
-      {tasks.length > 0 ? (
-          tasks.map((task) => <Details  task={task} key={task._id}  />)
+      <TabsContent value="Summery"></TabsContent>
+      <TabsContent value="Details"  className="h-96 overflow-y-auto" >
+        <header className="my-5 font-semibold">Focus Time Details</header>
+        <div className="flex flex-row space-x-40   list-none border-b py-2 mr-3">
+         <li>
+          DATE
+         </li>
+         <li>
+          TASK
+         </li>
+         <li>
+          MINUTES
+         </li>
+          </div>
+        {tasks.length > 0 ? (
+          tasks.map((task) => <Details task={task} key={task._id} />)
         ) : (
           <p>No tasks available</p>
         )}
