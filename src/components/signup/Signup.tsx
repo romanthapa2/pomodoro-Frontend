@@ -13,6 +13,7 @@ interface formState {
 const Signup: React.FC = () => {
     const history = useNavigate();
   const [value, setvalue] = useState<formState>({email: "",password: "",});
+  console.log(value)
     const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const response = await fetch(`http://localhost:5000/api/user/signup`, {
@@ -23,6 +24,7 @@ const Signup: React.FC = () => {
         body: JSON.stringify({ email: value.email, password: value.password }),
       });
       const json = await response.json();
+      console.log(json); 
       if (json.success) {
         Cookies.set("accessToken", json.data.accessToken);
         history("/");
@@ -58,8 +60,6 @@ const Signup: React.FC = () => {
               className="p-2 border rounded-md bg-slate-100 focus:outline-none"
               placeholder="example@gmail.com"
               onChange={onChange}
-              
-              minLength={5}
               required
             />
           </div>

@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState,useEffect } from "react";
 import fetchTask from "./fetchTaSK";
 import { Details } from "./Details";
+import Cookies from "js-cookie";
 
 export interface Task {
   _id: string;
@@ -20,7 +21,7 @@ const ReportContent = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (activeTab === "Details") {
+      if (activeTab === "Details" && Cookies.get("accessToken") !== undefined) {
         const response = await fetchTask();
         if (response && response.success) {
           setTasks(response.data.tasks);
