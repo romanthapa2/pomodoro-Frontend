@@ -5,7 +5,7 @@ import createTask from "./postFunctionCall";
 import { useSelector } from "react-redux";
 import type { Task } from "@/reduxstore/TaskSlice";
 import {
-  selectSelectedTaskIndex,
+  selectSelectedTaskindex,
   selectPomoTask,
 } from "@/reduxstore/TaskSlice";
 import { updateTask } from "@/reduxstore/TaskSlice";
@@ -16,7 +16,7 @@ dayjs.extend(duration);
 const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
   const dispatch = useAppDispatch();
   const pomoTask = useSelector(selectPomoTask) as Task[];
-  const selectedTaskIndex = useSelector(selectSelectedTaskIndex);
+  const selectedTaskindex = useSelector(selectSelectedTaskindex);
 
   const [status, setStatus] = useState<"Start" | "Pause">("Pause");
   const [time, setTime] = useState<string>(`${initialTime}:00`);
@@ -34,16 +34,16 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
     if (differenceTime <= 0) {
       clearInterval(timerId.current!);
       setStatus("Pause");
-      if (selectedTaskIndex !== null && pomoTask[selectedTaskIndex]) {
+      if (selectedTaskindex !== null && pomoTask[selectedTaskindex]) {
         const updatedTask = {
-          ...pomoTask[selectedTaskIndex],
+          ...pomoTask[selectedTaskindex],
           completedTaskNo:
-            (pomoTask[selectedTaskIndex].completedTaskNo || 0) + 1,
+            (pomoTask[selectedTaskindex].completedTaskNo || 0) + 1,
         };
-        dispatch(updateTask({ index: selectedTaskIndex, task: updatedTask }));
+        dispatch(updateTask({ index: selectedTaskindex, task: updatedTask }));
       }
       createTask({
-        task: pomoTask[selectedTaskIndex ?? 0].text,
+        task: pomoTask[selectedTaskindex ?? 0].text,
         total_minutes: initialTime,
       });
       if (onTimerEnd) {

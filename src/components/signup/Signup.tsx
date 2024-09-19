@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import AlertTitle from "@mui/material/AlertTitle";
 import Alert from "@mui/material/Alert";
 
 interface formState {
@@ -31,6 +30,9 @@ const Signup: React.FC = () => {
       history("/");
     } else {
       setError(json.message);
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
     }
   };
 
@@ -38,10 +40,18 @@ const Signup: React.FC = () => {
     setvalue({ ...value, [e.target.name]: e.target.value });
   };
   return (
-    <div className="h-screen bg-black text-white flex justify-center flex-col items-center overflow-hidden">
-      <h1 className="text-4xl font-bold my-6">Pomofocus</h1>
-      <h1 className="font-bold gap-y-6">Create Account</h1>
-      <div className="h-[55%] bg-white text-black w-96 rounded-md flex flex-col justify-center items-center mt-6">
+    <div className="h-screen bg-black text-white flex justify-center flex-col items-center overflow-hidden space-y-4">
+      <div className="h-8">
+      {error && (
+        <div className="w-80">
+          <Alert severity="error">{error}</Alert>
+        </div>
+      )}
+      </div>
+
+      <h1 className="text-4xl font-bold">Pomofocus</h1>
+      <h1 className="font-bold">Create Account</h1>
+      <div className="h-[55%] bg-white text-black w-96 rounded-md flex flex-col justify-center items-center">
         <Button className=" mb-3 bg-white text-black border w-5/6  hover:bg-transparent shadow-md">
           <FcGoogle className="text-lg mr-2" />
           Signup with Google
@@ -84,19 +94,13 @@ const Signup: React.FC = () => {
           </Button>
         </form>
       </div>
-      <div className="flex w-full  ml-[80%] items-center  ">
+      <div className="flex w-full  ml-[80%] items-center">
         <h1 className="">
           Already have an account?
           <Link className="underline" to={"/login"}>
             Log in
           </Link>
         </h1>
-        {error && (
-          <Alert severity="error" className="ml-48">
-            <AlertTitle>Error</AlertTitle>
-            {error}
-          </Alert>
-        )}
       </div>
     </div>
   );

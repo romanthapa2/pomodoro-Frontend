@@ -5,7 +5,7 @@ import type { Task } from "@/reduxstore/TaskSlice";
 import TaskCard from "./TaskCard";
 import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
 import { useAppDispatch } from "@/reduxstore/AppHooks";
-import { selectSelectedTaskIndex } from "@/reduxstore/TaskSlice";
+import { selectSelectedTaskindex } from "@/reduxstore/TaskSlice";
 import { useEffect } from "react";
 
 const Task: React.FC = () => {
@@ -14,7 +14,7 @@ const Task: React.FC = () => {
     dispatch(clearTask());
   };
 
-  const selectedTaskIndexFromRedux = useSelector(selectSelectedTaskIndex);
+  const selectedTaskindexFromRedux = useSelector(selectSelectedTaskindex);
   const pomoTask = useSelector(selectPomoTask) as Task[];
 
   const handleTaskClick = (index: number) => {
@@ -22,7 +22,7 @@ const Task: React.FC = () => {
   };
 
   useEffect(() => {
-    if (pomoTask.length > 0 && selectedTaskIndexFromRedux === null) {
+    if (pomoTask.length > 0 && selectedTaskindexFromRedux === null) {
       dispatch(selectTask(0));
     }
   }, [pomoTask]);
@@ -41,8 +41,9 @@ const Task: React.FC = () => {
           {pomoTask.map((task, index) => (
             <TaskCard
               task={task}
+              key={index}
               index={index}
-              isSelected={index === selectedTaskIndexFromRedux}
+              isSelected={index === selectedTaskindexFromRedux}
               onClick={() => handleTaskClick(index)}
             />
           ))}

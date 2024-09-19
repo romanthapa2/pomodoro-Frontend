@@ -3,12 +3,12 @@ import type { RootState } from "./Store";
 
 export interface taskType {
   pomoTask: object[];
-  selectedTaskIndex: number | null;
+  selectedTaskindex: number | null;
 }
 
 const initialState: taskType = {
   pomoTask: [],
-  selectedTaskIndex: null,
+  selectedTaskindex: null,
 };
 
 export interface Task {
@@ -38,10 +38,10 @@ const taskSlice = createSlice({
     },
     clearTask: (state) => {
       state.pomoTask = [];
-      state.selectedTaskIndex = null;
+      state.selectedTaskindex = null;
     },
     selectTask: (state, action: PayloadAction<number>) => {
-      state.selectedTaskIndex = action.payload;
+      state.selectedTaskindex = action.payload;
     },
   },
 });
@@ -49,5 +49,5 @@ const taskSlice = createSlice({
 export const { addPomoTask,updateTask, deleteTask, clearTask,selectTask } = taskSlice.actions;
 export const selectPomoTask = (state: RootState) => state.taskSlice.pomoTask;
 // export const selectPomoTaskFirst = (state: RootState) => state.taskSlice.pomoTask[0];
-export const selectSelectedTaskIndex = (state: RootState) => state.taskSlice.selectedTaskIndex;
+export const selectSelectedTaskindex = (state: RootState) => state.taskSlice.selectedTaskindex;
 export default taskSlice.reducer;

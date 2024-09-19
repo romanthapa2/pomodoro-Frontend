@@ -48,7 +48,7 @@ const ReportContent = () => {
       <TabsContent value="Summery"></TabsContent>
       <TabsContent value="Details"  className="h-96 overflow-y-auto" >
         <header className="my-5 font-semibold">Focus Time Details</header>
-        <div className="flex flex-row space-x-40   list-none border-b py-2 mr-3">
+        <div className="flex flex-row space-x-32   list-none border-b py-2">
          <li>
           DATE
          </li>
