@@ -3,7 +3,9 @@ import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
+import AlertTitle from "@mui/material/AlertTitle";
+import Alert from "@mui/material/Alert";
 
 interface formState {
   email: string;
@@ -11,41 +13,40 @@ interface formState {
 }
 
 const Signup: React.FC = () => {
-    const history = useNavigate();
-  const [value, setvalue] = useState<formState>({email: "",password: "",});
-  console.log(value)
-    const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const response = await fetch(`http://localhost:5000/api/user/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: value.email, password: value.password }),
-      });
-      const json = await response.json();
-      console.log(json); 
-      if (json.success) {
-        Cookies.set("accessToken", json.data.accessToken);
-        history("/");
-      } else {
-        return <h1>error</h1>;
-      }
-    };
+  const history = useNavigate();
+  const [value, setvalue] = useState<formState>({ email: "", password: "" });
+  const [error, setError] = useState<string | null>(null);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const response = await fetch(`http://localhost:5000/api/user/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: value.email, password: value.password }),
+    });
+    const json = await response.json();
+    if (json.success) {
+      Cookies.set("accessToken", json.data.accessToken);
+      history("/");
+    } else {
+      setError(json.message);
+    }
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setvalue({ ...value, [e.target.name]: e.target.value });
   };
   return (
-    <div className="h-screen bg-black text-white flex justify-center flex-col items-center gap-y-6 ">
-      <h1 className="text-4xl font-bold">Pomofocus</h1>
-      <h1 className="font-bold">Create Account</h1>
-      <div className="h-[55%] bg-white text-black w-96 rounded-md flex flex-col justify-center items-center">
+    <div className="h-screen bg-black text-white flex justify-center flex-col items-center overflow-hidden">
+      <h1 className="text-4xl font-bold my-6">Pomofocus</h1>
+      <h1 className="font-bold gap-y-6">Create Account</h1>
+      <div className="h-[55%] bg-white text-black w-96 rounded-md flex flex-col justify-center items-center mt-6">
         <Button className=" mb-3 bg-white text-black border w-5/6  hover:bg-transparent shadow-md">
-        <FcGoogle className="text-lg mr-2"/>
+          <FcGoogle className="text-lg mr-2" />
           Signup with Google
         </Button>
-        
+
         <div className="flex items-center w-5/6 mb-2">
           <div className="flex-1 border-t border-gray-300"></div>
           <span className="px-4 text-gray-700">or</span>
@@ -57,6 +58,7 @@ const Signup: React.FC = () => {
             <input
               name="email"
               type="email"
+              minLength={3}
               className="p-2 border rounded-md bg-slate-100 focus:outline-none"
               placeholder="example@gmail.com"
               onChange={onChange}
@@ -68,23 +70,33 @@ const Signup: React.FC = () => {
             <input
               name="password"
               type="password"
+              minLength={6}
               placeholder="password"
               className=" p-2 bg-slate-100 rounded-md focus:outline-none"
               onChange={onChange}
             />
           </div>
-          <Button type="submit" className="w-full text-white bg-black rounded-lg mt-6" >
+          <Button
+            type="submit"
+            className="w-full text-white bg-black rounded-lg mt-6"
+          >
             Sign up with Email
           </Button>
         </form>
       </div>
-      <div className="">
-        <h1>
-          Already have an account?{" "}
+      <div className="flex w-full  ml-[80%] items-center  ">
+        <h1 className="">
+          Already have an account?
           <Link className="underline" to={"/login"}>
             Log in
           </Link>
         </h1>
+        {error && (
+          <Alert severity="error" className="ml-48">
+            <AlertTitle>Error</AlertTitle>
+            {error}
+          </Alert>
+        )}
       </div>
     </div>
   );
