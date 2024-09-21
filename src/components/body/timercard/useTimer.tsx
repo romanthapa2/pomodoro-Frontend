@@ -26,6 +26,7 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
   const timeLeft = useRef(endTime.current.unix() - dayjs().unix());
   const pauseStartTime = useRef<dayjs.Dayjs | null>(null);
   const totalPauseTime = useRef(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const twoDP = (n: number) => (n > 9 ? n.toString() : `0${n}`);
 
@@ -33,6 +34,11 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
     const differenceTime = endTime.current.unix() - dayjs().unix();
     if (differenceTime <= 0) {
       clearInterval(timerId.current!);
+
+      if (audioRef.current) {
+        audioRef.current.play();
+      }
+
       setStatus("Pause");
       if (selectedTaskindex !== null && pomoTask[selectedTaskindex]) {
         const updatedTask = {
@@ -109,6 +115,7 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
     status,
     startPauseTimer,
     resetTimer,
+    audioRef
   };
 };
 

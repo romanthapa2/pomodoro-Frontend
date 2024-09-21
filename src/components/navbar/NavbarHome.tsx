@@ -8,6 +8,10 @@ import Cookies from "js-cookie";
 
 const NavbarHome: React.FC = () => {
   const cookie = Cookies.get("accessToken");
+  const removeCookie = () => {
+    Cookies.remove("accessToken");
+    window.location.reload();
+  };
   return (
     <div className="text-white flex flex-row items-center p-4 justify-center gap-[15%] overflow-x-hidden">
       <div>
@@ -26,7 +30,7 @@ const NavbarHome: React.FC = () => {
             <span className=" md:inline-block">Sign In </span>
           </Link>
           </button>
-        ) :  <button className="bg-slate-600 p-1.5 rounded-md gap-1"><span className=" md:inline-block">Log Out </span></button>
+        ) :  <button className="bg-slate-600 p-1.5 rounded-md gap-1" onClick={removeCookie}><span className=" md:inline-block">Log Out </span></button>
       }
 
         <button className="bg-gray-600 flex flex-row items-center rounded-md  p-2 ">

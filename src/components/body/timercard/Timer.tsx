@@ -7,6 +7,7 @@ import {
 } from "../../../reduxstore/TimeSlice";
 import useTimer from "./useTimer";
 import { Button } from "@/components/ui/button";
+import AudioPlayer from "./audioPlayer";
 
 const Timer: React.FC = () => {
   const pomodoroTime = useSelector(selectPomodoroTime);
@@ -20,7 +21,7 @@ const Timer: React.FC = () => {
     }
   };
 
-  const { time, status, startPauseTimer, resetTimer } = useTimer(
+  const { time, status, startPauseTimer, resetTimer, audioRef } = useTimer(
     pomodoroTime,
     handleTimerEnd
   );
@@ -79,6 +80,7 @@ const Timer: React.FC = () => {
           </button>
         </div>
       </div>
+      <AudioPlayer audioRef={audioRef} />
     </div>
   );
 };
