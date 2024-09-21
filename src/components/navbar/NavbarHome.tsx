@@ -5,7 +5,6 @@ import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
 import ViewReport from "./report/ViewReport";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { Button } from "@/components/ui/button";
 
 const NavbarHome: React.FC = () => {
   const cookie = Cookies.get("accessToken");
