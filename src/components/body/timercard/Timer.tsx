@@ -15,7 +15,6 @@ const Timer: React.FC = () => {
   const longBreakTime = useSelector(selectLongBreak);
 
   const handleTimerEnd = () => {
-    // Automatically switch to "Short Break" when the Pomodoro timer ends
     if (activeButton === "Pomodoro") {
       setActiveButton("Short Break");
     }

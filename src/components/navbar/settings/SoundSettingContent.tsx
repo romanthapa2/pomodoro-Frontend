@@ -9,7 +9,8 @@ import React from "react";
 
 
 const SoundSettingContent = () => {
-  const [sound, setSound] = React.useState("Telephone");
+  const [sound, setSound] = React.useState(
+    () => localStorage.getItem("sound") || "Telephone");
   const setSoundValue = (value: string) =>{
     setSound(value);
     localStorage.setItem("sound", value);
@@ -27,7 +28,6 @@ const SoundSettingContent = () => {
             <SelectContent>
               {/* <SelectItem value="light">Kitchen</SelectItem> */}
               <SelectItem value="Telephone">Telephone</SelectItem>
-              <SelectItem value="Wind-up">Wind-up</SelectItem>
               <SelectItem value="Kitchen">Kitchen</SelectItem>
             </SelectContent>
           </Select>

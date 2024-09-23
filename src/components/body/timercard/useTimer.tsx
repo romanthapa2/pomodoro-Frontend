@@ -34,11 +34,6 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
     const differenceTime = endTime.current.unix() - dayjs().unix();
     if (differenceTime <= 0) {
       clearInterval(timerId.current!);
-
-      if (audioRef.current) {
-        audioRef.current.play();
-      }
-
       setStatus("Pause");
       if (selectedTaskindex !== null && pomoTask[selectedTaskindex]) {
         const updatedTask = {
@@ -47,14 +42,20 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
             (pomoTask[selectedTaskindex].completedTaskNo || 0) + 1,
         };
         dispatch(updateTask({ index: selectedTaskindex, task: updatedTask }));
+        
+        createTask({
+          task: pomoTask[selectedTaskindex ?? 0].text,
+          total_minutes: initialTime,
+        });
       }
-      createTask({
-        task: pomoTask[selectedTaskindex ?? 0].text,
-        total_minutes: initialTime,
-      });
+
       if (onTimerEnd) {
         onTimerEnd();
       }
+      if (audioRef.current) {
+        audioRef.current.play();
+      }
+
       return;
     }
 
@@ -102,8 +103,8 @@ const useTimer = (initialTime: number, onTimerEnd?: () => void) => {
     setStatus("Pause");
     endTime.current = dayjs().add(newTime, "minutes");
     timeLeft.current = endTime.current.unix() - dayjs().unix();
-    totalPauseTime.current = 0; // Reset pause time
-    pauseStartTime.current = null; // Clear any existing pause time
+    totalPauseTime.current = 0; 
+    pauseStartTime.current = null; 
   };
 
   useEffect(() => {
