@@ -5,9 +5,9 @@ import {
   selectLongBreak,
   selectShortBreak,
 } from "../../../reduxstore/TimeSlice";
-import useTimer from "./useTimer";
+import useTimer from "./UseTimer";
 import { Button } from "@/components/ui/button";
-import AudioPlayer from "./audioPlayer";
+import AudioPlayer from "./AudioPlayer";
 
 const Timer: React.FC = () => {
   const pomodoroTime = useSelector(selectPomodoroTime);
