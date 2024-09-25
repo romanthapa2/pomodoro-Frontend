@@ -9,7 +9,7 @@ interface Task {
 
 export default async function createTask(taskData: Task) {
   try {
-    const response = await axios.post('http://localhost:5000/api/task/tasks', taskData, {
+    const response = await axios.post('https://pomodoro-backend-dkty.onrender.com/api/task/tasks', taskData, {
       headers: {
         'Content-Type': 'application/json',
       },
