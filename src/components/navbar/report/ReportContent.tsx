@@ -33,7 +33,7 @@ const ReportContent = () => {
 
 
   return (
-    <Tabs defaultValue="Summery" className="w-full" onValueChange={setActiveTab}>
+    <Tabs defaultValue="Summery" className="w-auto" onValueChange={setActiveTab}>
       <TabsList className="flex justify-evenly items-center">
         <TabsTrigger value="Summery" className="w-1/2">
           Summery
@@ -45,10 +45,12 @@ const ReportContent = () => {
           Details
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="Summery"></TabsContent>
-      <TabsContent value="Details"  className="h-96 overflow-y-auto" >
+      <TabsContent value="Summery" className="w-full">
+
+      </TabsContent>
+      <TabsContent value="Details"  className="h-96 w-auto" >
         <header className="my-5 font-semibold">Focus Time Details</header>
-        <div className="flex flex-row space-x-32   list-none border-b py-2">
+        <div className="flex flex-row space-x-24   list-none border-b py-2">
          <li>
           DATE
          </li>

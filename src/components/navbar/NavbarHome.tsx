@@ -1,7 +1,7 @@
 import React from "react";
 import { MdOutlineAssignmentInd } from "react-icons/md";
 import TimeSettings from "./settings/TimeSettingOpener";
-import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
+// import { PiDotsThreeOutlineVerticalThin } from "react-icons/pi";
 import ViewReport from "./report/ViewReport";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -32,10 +32,6 @@ const NavbarHome: React.FC = () => {
           </button>
         ) :  <button className="bg-slate-600 p-1.5 rounded-md gap-1" onClick={removeCookie}><span className=" md:inline-block">Log Out </span></button>
       }
-
-        <button className="bg-gray-600 flex flex-row items-center rounded-md  p-2 ">
-          <PiDotsThreeOutlineVerticalThin />
-        </button>
       </div>
     </div>
   );

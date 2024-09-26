@@ -8,6 +8,7 @@ import {
 import useTimer from "./UseTimer";
 import { Button } from "@/components/ui/button";
 import AudioPlayer from "./AudioPlayer";
+import TimerDisplay from "./TimerDisplay";
 
 const Timer: React.FC = () => {
   const pomodoroTime = useSelector(selectPomodoroTime);
@@ -63,13 +64,8 @@ const Timer: React.FC = () => {
           ))}
         </div>
 
-        <div
-          className="flex justify-center items-center h-32 font-semibold"
-          style={{ fontSize: "7rem" }}
-        >
-          {time}
-        </div>
-
+        <TimerDisplay time={time} />
+        
         <div className="h-20 w-full flex justify-center items-center">
           <button
             onClick={startPauseTimer}

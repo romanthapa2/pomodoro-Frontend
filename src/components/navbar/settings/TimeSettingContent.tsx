@@ -42,13 +42,13 @@ const SettingContent = () => {
 
   return (
     <>
-      <div>
+      <div className="">
         <header className="h-8 text-green-900 border-b-2 flex justify-center items-center font-bold ">
           SETTING
         </header>
         <h2 className="h-8 mt-4 font-bold text-slate-500 text-lg">TIMER</h2>
         <h2 className="text-lg font-semibold">Time(minutes)</h2>
-        <div className="flex flex-row justify-start space-x-12 w-full">
+        <div className="flex flex-row justify-start space-x-2 md:space-x-12">
           <div>
             <h3 className="text-slate-500">Pomodoro</h3>
             <input

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default async function fetchTask(){
     try {
-      const response = await axios.get('http://localhost:5000/api/task/task',{
+      const response = await axios.get(`https://pomodoro-backend-dkty.onrender.com/api/task/task`,{
         withCredentials: true,
       });
       return response.data;
