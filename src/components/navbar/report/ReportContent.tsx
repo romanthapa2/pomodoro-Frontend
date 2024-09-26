@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState,useEffect } from "react";
-import fetchTask from "./fetchTaSK";
+import fetchTask from "./FetchTak";
 import { Details } from "./Details";
 import Cookies from "js-cookie";
 
